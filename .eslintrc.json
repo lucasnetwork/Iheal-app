@@ -14,12 +14,52 @@
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "no-use-before-define": "off",
+    "import/no-unresolved": "off",
     "react/style-prop-object": "off",
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "import/extensions": "off",
     "react/jsx-filename-extension": [
       "error",
       {
         "extensions": [".ts", ".tsx"]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "index",
+          "sibling",
+          "parent",
+          "internal",
+          "external",
+          "unknown"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "*react*/**",
+            "group": "index"
+          },
+          {
+            "pattern": "./styles",
+            "group": "index"
+          },
+          {
+            "pattern": "**/views/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "**/components/**",
+            "group": "sibling",
+            "position": "after"
+          },
+          {
+            "pattern": "**/services/**",
+            "group": "sibling",
+            "position": "before"
+          }
+        ]
       }
     ]
   }
