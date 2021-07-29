@@ -9,7 +9,7 @@ export default function Main() {
       <NavigationContainer>
         <Tabs />
       </NavigationContainer>
-      <StatusBar style="auto" />
+      <StatusBar style="light" backgroundColor="#11BAFD" />
     </>
   );
 }
