@@ -18,6 +18,8 @@
     "react/style-prop-object": "off",
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "import/extensions": "off",
+    "react/react-in-jsx-scope": "off",
+    "consistent-return": "off",
     "react/jsx-filename-extension": [
       "error",
       {
