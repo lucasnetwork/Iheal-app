@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
 type product = {
   id: number;
@@ -142,3 +142,5 @@ const ContextProvider: React.FC = ({ children }) => {
 };
 
 export default ContextProvider;
+
+export const useContextProvider = () => useContext(ContextApp);
