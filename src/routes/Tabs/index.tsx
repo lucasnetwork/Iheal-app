@@ -1,4 +1,3 @@
-import CartStack from '../Stacks/CartStack';
 import Cart from '../../views/Cart';
 import Account from '../../views/Account';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -96,7 +95,7 @@ function MyTabs() {
       }}
     >
       <Screen name="products" component={Cart} />
-      <Screen name="cart" component={CartStack} />
+      <Screen name="cart" component={Cart} />
       <Screen name="account" component={Account} />
     </Navigator>
   );

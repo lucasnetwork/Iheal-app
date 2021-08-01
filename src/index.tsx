@@ -1,4 +1,4 @@
-import Tabs from './routes/Tabs';
+import Stacks from './routes/Stacks';
 import ContextProvider from './services/context';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
@@ -8,7 +8,7 @@ export default function Main() {
   return (
     <ContextProvider>
       <NavigationContainer>
-        <Tabs />
+        <Stacks />
       </NavigationContainer>
       <StatusBar style="light" backgroundColor="#11BAFD" />
     </ContextProvider>

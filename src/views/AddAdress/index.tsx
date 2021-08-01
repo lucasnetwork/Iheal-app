@@ -1,6 +1,7 @@
 import styles from './styles';
 import Button from '../../components/Button';
 import cart from '../../assets/cart.png';
+import Header from '../../components/Header';
 import { View, TextInput, Image, Text } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +10,7 @@ const AddAdress = () => {
   const navigate = useNavigation();
   return (
     <>
+      <Header buttonBack />
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Image source={cart} width={47} height={47} resizeMode="contain" />

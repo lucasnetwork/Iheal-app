@@ -1,6 +1,7 @@
 import styles from './styles';
 import Button from '../../components/Button';
 import { useContextProvider } from '../../services/context';
+import Header from '../../components/Header';
 import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -12,6 +13,7 @@ const FinishedBuy = () => {
   const navigate = useNavigation();
   return (
     <>
+      <Header buttonBack />
       <View style={styles.container}>
         <View style={styles.containerInfo}>
           <View style={styles.addressContainer}>

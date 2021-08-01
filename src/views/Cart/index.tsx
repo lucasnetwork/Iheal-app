@@ -14,6 +14,7 @@ const Cart = () => {
 
   return (
     <>
+      <Header />
       <View style={styles.container}>
         <Text style={styles.title}>
           Produtos no Carrinho({cart.totalQuantity})
