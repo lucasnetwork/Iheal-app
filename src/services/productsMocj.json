@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "Acetato de Gosserrelina",
+    "price": 1470,
+    "quantity": 2,
+    "total": 2940,
+    "priceFormat": "R$ 1.470,00",
+    "priceFormatTotal": "R$ 2.940,00",
+    "description": "Zoladex LA 10,8mg, caixa com 1 seringa carregada com depot de liberação caixa com 1 seringa carregada com...",
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-0.imagensemoldes.com.br%2Fwp-content%2Fuploads%2F2020%2F10%2FFigura-Caixa-de-Remedio-PNG.png&f=1&nofb=1"
+  },
+  {
+    "id": 2,
+    "name": "Acetato de Gosserrelina",
+    "priceFormatTotal": "R$ 2.940,00",
+    "total": 2940,
+    "description": "Zoladex LA 10,8mg, caixa com 1 seringa carregada com depot de liberação caixa com 1 seringa carregada com...",
+    "priceFormat": "R$ 1.470,00",
+    "price": 1470,
+    "quantity": 2,
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-0.imagensemoldes.com.br%2Fwp-content%2Fuploads%2F2020%2F10%2FFigura-Caixa-de-Remedio-PNG.png&f=1&nofb=1"
+  },
+  {
+    "id": 3,
+    "name": "Acetato de Gosserrelina",
+    "total": 2940,
+    "priceFormatTotal": "R$ 2.940,00",
+    "description": "Zoladex LA 10,8mg, caixa com 1 seringa carregada com depot de liberação caixa com 1 seringa carregada com...",
+    "priceFormat": "R$ 1.470,00",
+    "price": 1470,
+    "quantity": 2,
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-0.imagensemoldes.com.br%2Fwp-content%2Fuploads%2F2020%2F10%2FFigura-Caixa-de-Remedio-PNG.png&f=1&nofb=1"
+  },
+  {
+    "id": 4,
+    "name": "Acetato de Gosserrelina",
+    "priceFormatTotal": "R$ 2.940,00",
+    "total": 2940,
+    "quantity": 2,
+    "description": "Zoladex LA 10,8mg, caixa com 1 seringa carregada com depot de liberação caixa com 1 seringa carregada com...",
+    "priceFormat": "R$ 1.470,00",
+    "price": 1470,
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-0.imagensemoldes.com.br%2Fwp-content%2Fuploads%2F2020%2F10%2FFigura-Caixa-de-Remedio-PNG.png&f=1&nofb=1"
+  },
+  {
+    "id": 5,
+    "name": "Acetato de Gosserrelina",
+    "priceFormatTotal": "R$ 2.940,00",
+    "quantity": 2,
+    "total": 2940,
+    "description": "Zoladex LA 10,8mg, caixa com 1 seringa carregada com depot de liberação caixa com 1 seringa carregada com...",
+    "priceFormat": "R$ 1.470,00",
+    "price": 1470,
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-0.imagensemoldes.com.br%2Fwp-content%2Fuploads%2F2020%2F10%2FFigura-Caixa-de-Remedio-PNG.png&f=1&nofb=1"
+  },
+  {
+    "id": 6,
+    "name": "Acetato de Gosserrelina",
+    "priceFormatTotal": "R$ 2.940,00",
+    "total": 2940,
+    "quantity": 2,
+    "description": "Zoladex LA 10,8mg, caixa com 1 seringa carregada com depot de liberação caixa com 1 seringa carregada com...",
+    "priceFormat": "R$ 1.470,00",
+    "price": 1470,
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-0.imagensemoldes.com.br%2Fwp-content%2Fuploads%2F2020%2F10%2FFigura-Caixa-de-Remedio-PNG.png&f=1&nofb=1"
+  },
+  {
+    "id": 7,
+    "name": "Acetato de Gosserrelina",
+    "priceFormatTotal": "R$ 2.940,00",
+    "total": 2940,
+    "quantity": 2,
+    "description": "Zoladex LA 10,8mg, caixa com 1 seringa carregada com depot de liberação caixa com 1 seringa carregada com...",
+    "priceFormat": "R$ 1.470,00",
+    "price": 1470,
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-0.imagensemoldes.com.br%2Fwp-content%2Fuploads%2F2020%2F10%2FFigura-Caixa-de-Remedio-PNG.png&f=1&nofb=1"
+  }
+]
