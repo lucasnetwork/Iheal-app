@@ -6,13 +6,14 @@ import Button from '../../components/Button';
 import emotionCry from '../../assets/emotionCry.png';
 import { View, Text, FlatList, Image } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
   const { cart } = useContextProvider();
+  const navigate = useNavigation();
 
   return (
     <>
-      <Header />
       <View style={styles.container}>
         <Text style={styles.title}>
           Produtos no Carrinho({cart.totalQuantity})
@@ -46,7 +47,9 @@ const Cart = () => {
                 Total: {cart.totalPriceFormat}
               </Text>
               <View style={styles.buttonContainer}>
-                <Button small>Comprar</Button>
+                <Button onPress={() => navigate.navigate('adress')} small>
+                  Comprar
+                </Button>
               </View>
             </View>
           </>
