@@ -8,6 +8,7 @@ type product = {
   total?: number;
   priceFormat?: string;
   priceFormatTotal?: string;
+  description: string;
 };
 
 type cartProps = {
