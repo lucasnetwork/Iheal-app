@@ -5,6 +5,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { FlatList } from 'react-native-gesture-handler';
 
 const FinishedBuy = () => {
   const { cart } = useContextProvider();
@@ -34,42 +35,28 @@ const FinishedBuy = () => {
               Resumo da compra({cart.totalQuantity})
             </Text>
             <View style={styles.containerProducts}>
-              <View style={styles.containerProduct}>
-                <View>
-                  <Text style={styles.titleProduct}>Nome do Produto 1</Text>
-                  <Text style={styles.titleShop}>Nome da Loja</Text>
-                </View>
-                <View>
-                  <Text style={styles.titleShop}>Quant:1</Text>
-                </View>
-                <View>
-                  <Text style={styles.titleProduct}>R$ 00,00</Text>
-                </View>
-              </View>
-              <View style={styles.containerProduct}>
-                <View>
-                  <Text style={styles.titleProduct}>Nome do Produto 1</Text>
-                  <Text style={styles.titleShop}>Nome da Loja</Text>
-                </View>
-                <View>
-                  <Text style={styles.titleShop}>Quant:1</Text>
-                </View>
-                <View>
-                  <Text style={styles.titleProduct}>R$ 00,00</Text>
-                </View>
-              </View>
-              <View style={styles.containerProduct}>
-                <View>
-                  <Text style={styles.titleProduct}>Nome do Produto 1</Text>
-                  <Text style={styles.titleShop}>Nome da Loja</Text>
-                </View>
-                <View>
-                  <Text style={styles.titleShop}>Quant:1</Text>
-                </View>
-                <View>
-                  <Text style={styles.titleProduct}>R$ 00,00</Text>
-                </View>
-              </View>
+              <FlatList
+                keyExtractor={item => `${item.id}`}
+                data={cart.products}
+                renderItem={({ item }) => (
+                  <View style={styles.containerProduct}>
+                    <View>
+                      <Text style={styles.titleProduct}>{item.name}</Text>
+                      <Text style={styles.titleShop}>Nome da Loja</Text>
+                    </View>
+                    <View>
+                      <Text style={styles.titleShop}>
+                        Quant:{item.quantity}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={styles.titleProduct}>
+                        {item.priceFormatTotal}
+                      </Text>
+                    </View>
+                  </View>
+                )}
+              />
             </View>
           </View>
         </View>
