@@ -29,6 +29,49 @@ const FinishedBuy = () => {
               />
             </TouchableOpacity>
           </View>
+          <View style={{ flex: 1 }}>
+            <Text style={{ marginTop: 9 }}>
+              Resumo da compra({cart.totalQuantity})
+            </Text>
+            <View style={styles.containerProducts}>
+              <View style={styles.containerProduct}>
+                <View>
+                  <Text style={styles.titleProduct}>Nome do Produto 1</Text>
+                  <Text style={styles.titleShop}>Nome da Loja</Text>
+                </View>
+                <View>
+                  <Text style={styles.titleShop}>Quant:1</Text>
+                </View>
+                <View>
+                  <Text style={styles.titleProduct}>R$ 00,00</Text>
+                </View>
+              </View>
+              <View style={styles.containerProduct}>
+                <View>
+                  <Text style={styles.titleProduct}>Nome do Produto 1</Text>
+                  <Text style={styles.titleShop}>Nome da Loja</Text>
+                </View>
+                <View>
+                  <Text style={styles.titleShop}>Quant:1</Text>
+                </View>
+                <View>
+                  <Text style={styles.titleProduct}>R$ 00,00</Text>
+                </View>
+              </View>
+              <View style={styles.containerProduct}>
+                <View>
+                  <Text style={styles.titleProduct}>Nome do Produto 1</Text>
+                  <Text style={styles.titleShop}>Nome da Loja</Text>
+                </View>
+                <View>
+                  <Text style={styles.titleShop}>Quant:1</Text>
+                </View>
+                <View>
+                  <Text style={styles.titleProduct}>R$ 00,00</Text>
+                </View>
+              </View>
+            </View>
+          </View>
         </View>
         <View style={styles.containerButtons}>
           <View>

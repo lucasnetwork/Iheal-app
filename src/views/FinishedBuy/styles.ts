@@ -12,6 +12,28 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  containerProducts: {
+    flex: 1,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0, 0, 0, 0.2)',
+    marginTop: 9,
+    paddingHorizontal: 8,
+  },
+  containerProduct: {
+    flexDirection: 'row',
+    marginTop: 12,
+    justifyContent: 'space-between',
+  },
+  titleProducts: {
+    fontSize: 12,
+  },
+  titleProduct: {
+    fontSize: 10,
+  },
+  titleShop: {
+    fontSize: 10,
+    color: '#A8A8B3',
+  },
   address: {
     color: '#d3d3d3',
     fontSize: 12,
