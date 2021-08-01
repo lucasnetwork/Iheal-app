@@ -13,7 +13,7 @@ const Button: React.FC<buttonProps> = ({
 }) => (
   <TouchableOpacity
     {...props}
-    style={small ? { ...styles.small, ...styles.container } : styles.container}
+    style={small ? { ...styles.container, ...styles.small } : styles.container}
   >
     <Text style={styles.text}>{children}</Text>
   </TouchableOpacity>
