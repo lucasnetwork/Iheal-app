@@ -14,7 +14,8 @@ interface ProductProps extends TouchableOpacityProps {
   product: {
     name: string;
     description: string;
-    priceFormat?: string;
+    priceFormat: string;
+    image: string;
   };
   onPressDelete?: () => void;
   buttonRemove?: boolean;
@@ -24,10 +25,17 @@ const Product: React.FC<ProductProps> = ({
   product,
   onPressDelete = () => {},
   buttonRemove = false,
+  style,
   ...props
 }) => (
   <TouchableOpacity style={styles.container} {...props}>
-    <Image style={styles.image} source={productImageTest} />
+    <Image
+      resizeMode="cover"
+      style={styles.image}
+      source={{
+        uri: product.image,
+      }}
+    />
     <View style={styles.content}>
       <Text style={styles.title}>{product.name}</Text>
       <Text numberOfLines={3} lineBreakMode="clip" style={styles.description}>
