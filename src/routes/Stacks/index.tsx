@@ -1,14 +1,19 @@
-import SignIn from '../../views/SignIn';
-import Cart from '../../views/Cart';
-import React from 'react';
+import FinishedBuy from '../../views/FinishedBuy';
+import Tabs from '../Tabs';
+import ShoppingAdministration from '../Tabs/shopAdiministration';
+import AddAdress from '../../views/AddAdress';
 import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 
-export default function Stacks() {
-  const { Screen, Navigator } = createStackNavigator();
-  return (
-    <Navigator headerMode="none">
-      <Screen name="signin" component={SignIn} />
-      <Screen name="cart" component={Cart} />
-    </Navigator>
-  );
-}
+const { Navigator, Screen } = createStackNavigator();
+
+const StackIndex = () => (
+  <Navigator headerMode="none">
+    <Screen name="clientTab" component={Tabs} />
+    <Screen name="shoppingTabs" component={ShoppingAdministration} />
+    <Screen name="adress" component={AddAdress} />
+    <Screen name="finishedBuy" component={FinishedBuy} />
+  </Navigator>
+);
+
+export default StackIndex;

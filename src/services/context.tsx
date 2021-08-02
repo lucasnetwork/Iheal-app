@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import productsMock from './productsMocj.json';
+import React, { createContext, useState, useContext } from 'react';
 
 type product = {
   id: number;
@@ -8,6 +9,8 @@ type product = {
   total?: number;
   priceFormat?: string;
   priceFormatTotal?: string;
+  description: string;
+  image: string;
 };
 
 type cartProps = {
@@ -27,10 +30,10 @@ export const ContextApp = createContext({} as constexProps);
 
 const ContextProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<cartProps>({
-    products: [],
-    totalQuantity: 0,
-    total: 0,
-    totalPriceFormat: 'R$ 0,00',
+    products: productsMock,
+    totalQuantity: 7,
+    total: 20580,
+    totalPriceFormat: 'R$ 20.580,00',
   });
 
   function updateItem(newProduct: product, quantity: number) {
@@ -141,3 +144,5 @@ const ContextProvider: React.FC = ({ children }) => {
 };
 
 export default ContextProvider;
+
+export const useContextProvider = () => useContext(ContextApp);
