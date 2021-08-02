@@ -11,8 +11,8 @@ const { Navigator, Screen } = createStackNavigator();
 
 const StackIndex = () => (
   <Navigator headerMode="none">
-    <Screen name="signIn" component={SignIn} />
     <Screen name="shoppingTabs" component={ShoppingAdministration} />
+    <Screen name="signIn" component={SignIn} />
     <Screen name="clientTab" component={Tabs} />
     <Screen name="adress" component={AddAdress} />
     <Screen name="finishedBuy" component={FinishedBuy} />

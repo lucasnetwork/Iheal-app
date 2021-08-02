@@ -1,4 +1,5 @@
 import ProductsAdministration from '../../views/ProductsAdministration';
+import Orders from '../../views/Orders';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { Text } from 'react-native';
@@ -94,7 +95,7 @@ function MyTabs() {
       }}
     >
       <Screen name="products" component={ProductsAdministration} />
-      <Screen name="orders" component={ProductsAdministration} />
+      <Screen name="orders" component={Orders} />
       <Screen name="account" component={ProductsAdministration} />
     </Navigator>
   );
