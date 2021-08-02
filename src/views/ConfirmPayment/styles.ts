@@ -10,19 +10,22 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 16,
     flexDirection: 'row',
+    paddingTop: 32,
     justifyContent: 'space-between',
+    marginHorizontal: 51,
   },
   containerProducts: {
     flex: 1,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0, 0, 0, 0.2)',
     marginTop: 9,
-    paddingHorizontal: 8,
+    paddingTop: 12,
   },
   containerProduct: {
     flexDirection: 'row',
     marginTop: 12,
     justifyContent: 'space-between',
+  },
+  productContainer: {
+    marginBottom: 12,
   },
   titleProducts: {
     fontSize: 12,
@@ -39,9 +42,7 @@ export default StyleSheet.create({
     fontSize: 12,
   },
   containerInfo: {
-    marginVertical: 24,
     flex: 1,
-    paddingHorizontal: 51,
   },
   containerButtons: {
     paddingHorizontal: 24,
@@ -60,6 +61,6 @@ export default StyleSheet.create({
     marginBottom: 8,
   },
   containerButton: {
-    width: 123,
+    width: 162,
   },
 });
