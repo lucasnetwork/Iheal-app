@@ -36,7 +36,7 @@ export default function SignIn() {
         <View style={style.listdivider} />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('cart')}
+          onPress={() => navigation.navigate('clientTab')}
           style={style.visitante}
         >
           <Text style={style.visitanteText}>Entrar como visitante</Text>
