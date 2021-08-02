@@ -1,10 +1,15 @@
 import styles from './styles';
 import Header from '../../components/Header';
+<<<<<<< HEAD
+import MyTabs from '../../routes/Tabs';
+import { View, Text } from 'react-native';
+=======
 import { useContextProvider } from '../../services/context';
 import Product from '../../components/Product';
 import Button from '../../components/Button';
 import emotionCry from '../../assets/emotionCry.png';
 import { View, Text, FlatList, Image } from 'react-native';
+>>>>>>> a574576d3a82b5a9a4eb07e835cce0892e5cb9e2
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
