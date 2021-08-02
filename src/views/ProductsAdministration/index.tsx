@@ -13,7 +13,7 @@ const ProductsAdministration = () => {
 
   return (
     <>
-      <Header />
+      <Header showCart={false} />
       <View style={styles.container}>
         <Text style={styles.name}>Olá, Drogaria Melo</Text>
         <View style={styles.containerButton}>

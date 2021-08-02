@@ -28,7 +28,7 @@ const Orders = () => {
   }, []);
   return (
     <>
-      <Header />
+      <Header showCart={false} />
       <View style={styles.container}>
         <Text style={styles.title}>Pedidos({orders.length})</Text>
         {orders.length > 0 ? (
@@ -68,7 +68,10 @@ const Orders = () => {
                       </View>
                       <Text style={styles.clientName}>Nome do cliente</Text>
                     </View>
-                    <TouchableOpacity style={styles.buttonOrder}>
+                    <TouchableOpacity
+                      onPress={() => navigate.navigate('confirmPayment')}
+                      style={styles.buttonOrder}
+                    >
                       <MaterialIcons
                         name="keyboard-arrow-right"
                         size={24}
