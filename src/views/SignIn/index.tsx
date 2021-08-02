@@ -16,7 +16,10 @@ export default function SignIn() {
         <Text style={style.logoText}>IHeal</Text>
       </View>
       <View style={style.content}>
-        <TouchableOpacity style={style.cliente}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SignUp')}
+          style={style.cliente}
+        >
           <View style={style.clienteLogo}>
             <Entypo name="emoji-flirt" size={35} color="#fff" />
           </View>
@@ -36,7 +39,7 @@ export default function SignIn() {
         <View style={style.listdivider} />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('cart')}
+          onPress={() => navigation.navigate('clientTab')}
           style={style.visitante}
         >
           <Text style={style.visitanteText}>Entrar como visitante</Text>
