@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const AddProduct = () => (
   <>
-    <Header buttonBack title="Adicionar produto" />
+    <Header buttonBack showCart={false} title="Adicionar produto" />
     <View style={styles.container}>
       <TouchableOpacity style={styles.buttonImage}>
         <MaterialCommunityIcons name="image-plus" size={24} color="#fff" />
