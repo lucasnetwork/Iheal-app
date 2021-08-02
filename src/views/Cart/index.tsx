@@ -1,5 +1,6 @@
 import styles from './styles';
 import Header from '../../components/Header';
+import MyTabs from '../../routes/Tabs';
 import { View, Text } from 'react-native';
 import React from 'react';
 
