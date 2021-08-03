@@ -1,0 +1,390 @@
+[
+  {
+    "_id": "610942ddf0708e0174115d83",
+    "published_at": "2021-08-03T13:21:33.822Z",
+    "stock": 100,
+    "price": 200,
+    "name": "cimegripe",
+    "createdAt": "2021-08-03T13:21:33.830Z",
+    "updatedAt": "2021-08-03T13:21:34.292Z",
+    "__v": 0,
+    "user_creator": {
+      "confirmed": true,
+      "blocked": false,
+      "IsStore": true,
+      "_id": "6109429ff0708e0174115d82",
+      "username": "Farmacia bom dia 2",
+      "email": "julystube2@gmail.com",
+      "address": "Santa rita",
+      "cpf": " 123.456.789-09",
+      "cep": "231312321312323",
+      "provider": "local",
+      "createdAt": "2021-08-03T13:20:31.233Z",
+      "updatedAt": "2021-08-03T13:20:31.643Z",
+      "__v": 0,
+      "role": "610852de98ec041b87b3c816",
+      "id": "6109429ff0708e0174115d82"
+    },
+    "users_owner": [],
+    "orders": [],
+    "id": "610942ddf0708e0174115d83"
+  },
+  {
+    "_id": "6109431bf0708e0174115d84",
+    "published_at": "2021-08-03T13:22:35.149Z",
+    "stock": 100,
+    "price": 200,
+    "name": "cimegripe",
+    "createdAt": "2021-08-03T13:22:35.152Z",
+    "updatedAt": "2021-08-03T13:35:57.922Z",
+    "__v": 0,
+    "user_creator": {
+      "confirmed": true,
+      "blocked": false,
+      "IsStore": true,
+      "_id": "6109429ff0708e0174115d82",
+      "username": "Farmacia bom dia 2",
+      "email": "julystube2@gmail.com",
+      "address": "Santa rita",
+      "cpf": " 123.456.789-09",
+      "cep": "231312321312323",
+      "provider": "local",
+      "createdAt": "2021-08-03T13:20:31.233Z",
+      "updatedAt": "2021-08-03T13:20:31.643Z",
+      "__v": 0,
+      "role": "610852de98ec041b87b3c816",
+      "id": "6109429ff0708e0174115d82"
+    },
+    "image": {
+      "_id": "6109463d1b51c103681f63fd",
+      "name": "ewfwefwefwfwfwfwfwfe.PNG",
+      "hash": "ewfwefwefwfwfwfwfwfe_4939f16772",
+      "ext": ".PNG",
+      "mime": "image/png",
+      "size": 54.43,
+      "width": 1200,
+      "height": 646,
+      "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997752/ewfwefwefwfwfwfwfwfe_4939f16772.png",
+      "provider_metadata": {
+        "public_id": "ewfwefwefwfwfwfwfwfe_4939f16772",
+        "resource_type": "image"
+      },
+      "formats": {
+        "thumbnail": {
+          "name": "thumbnail_ewfwefwefwfwfwfwfwfe.PNG",
+          "hash": "thumbnail_ewfwefwefwfwfwfwfwfe_4939f16772",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 245,
+          "height": 132,
+          "size": 12.82,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997753/thumbnail_ewfwefwefwfwfwfwfwfe_4939f16772.png",
+          "provider_metadata": {
+            "public_id": "thumbnail_ewfwefwefwfwfwfwfwfe_4939f16772",
+            "resource_type": "image"
+          }
+        },
+        "large": {
+          "name": "large_ewfwefwefwfwfwfwfwfe.PNG",
+          "hash": "large_ewfwefwefwfwfwfwfwfe_4939f16772",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 1000,
+          "height": 538,
+          "size": 87.54,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997754/large_ewfwefwefwfwfwfwfwfe_4939f16772.png",
+          "provider_metadata": {
+            "public_id": "large_ewfwefwefwfwfwfwfwfe_4939f16772",
+            "resource_type": "image"
+          }
+        },
+        "medium": {
+          "name": "medium_ewfwefwefwfwfwfwfwfe.PNG",
+          "hash": "medium_ewfwefwefwfwfwfwfwfe_4939f16772",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 750,
+          "height": 404,
+          "size": 58.55,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997755/medium_ewfwefwefwfwfwfwfwfe_4939f16772.png",
+          "provider_metadata": {
+            "public_id": "medium_ewfwefwefwfwfwfwfwfe_4939f16772",
+            "resource_type": "image"
+          }
+        },
+        "small": {
+          "name": "small_ewfwefwefwfwfwfwfwfe.PNG",
+          "hash": "small_ewfwefwefwfwfwfwfwfe_4939f16772",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 500,
+          "height": 269,
+          "size": 32.46,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997756/small_ewfwefwefwfwfwfwfwfe_4939f16772.png",
+          "provider_metadata": {
+            "public_id": "small_ewfwefwefwfwfwfwfwfe_4939f16772",
+            "resource_type": "image"
+          }
+        }
+      },
+      "provider": "cloudinary",
+      "related": [
+        "6109431bf0708e0174115d84"
+      ],
+      "createdAt": "2021-08-03T13:35:57.283Z",
+      "updatedAt": "2021-08-03T13:35:57.758Z",
+      "__v": 0,
+      "id": "6109463d1b51c103681f63fd"
+    },
+    "users_owner": [],
+    "orders": [
+      {
+        "status": "unpaid",
+        "_id": "610943abf0708e0174115d87",
+        "total": 200,
+        "published_at": "2021-08-03T13:24:59.227Z",
+        "createdAt": "2021-08-03T13:24:59.232Z",
+        "updatedAt": "2021-08-03T13:24:59.537Z",
+        "__v": 0,
+        "product": "6109431bf0708e0174115d84",
+        "user_order": "61094204f0708e0174115d7f",
+        "id": "610943abf0708e0174115d87"
+      }
+    ],
+    "id": "6109431bf0708e0174115d84"
+  },
+  {
+    "_id": "610946241b51c103681f63fa",
+    "published_at": "2021-08-03T13:35:32.586Z",
+    "stock": 100,
+    "price": 200,
+    "name": "cimegripe",
+    "createdAt": "2021-08-03T13:35:32.600Z",
+    "updatedAt": "2021-08-03T13:36:11.948Z",
+    "__v": 0,
+    "user_creator": {
+      "confirmed": true,
+      "blocked": false,
+      "IsStore": true,
+      "_id": "6109429ff0708e0174115d82",
+      "username": "Farmacia bom dia 2",
+      "email": "julystube2@gmail.com",
+      "address": "Santa rita",
+      "cpf": " 123.456.789-09",
+      "cep": "231312321312323",
+      "provider": "local",
+      "createdAt": "2021-08-03T13:20:31.233Z",
+      "updatedAt": "2021-08-03T13:20:31.643Z",
+      "__v": 0,
+      "role": "610852de98ec041b87b3c816",
+      "id": "6109429ff0708e0174115d82"
+    },
+    "image": {
+      "_id": "6109464b1b51c103681f63ff",
+      "name": "ewfwefwefwfwfwfwfwfe.PNG",
+      "hash": "ewfwefwefwfwfwfwfwfe_4bab34a987",
+      "ext": ".PNG",
+      "mime": "image/png",
+      "size": 54.43,
+      "width": 1200,
+      "height": 646,
+      "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997766/ewfwefwefwfwfwfwfwfe_4bab34a987.png",
+      "provider_metadata": {
+        "public_id": "ewfwefwefwfwfwfwfwfe_4bab34a987",
+        "resource_type": "image"
+      },
+      "formats": {
+        "thumbnail": {
+          "name": "thumbnail_ewfwefwefwfwfwfwfwfe.PNG",
+          "hash": "thumbnail_ewfwefwefwfwfwfwfwfe_4bab34a987",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 245,
+          "height": 132,
+          "size": 12.82,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997767/thumbnail_ewfwefwefwfwfwfwfwfe_4bab34a987.png",
+          "provider_metadata": {
+            "public_id": "thumbnail_ewfwefwefwfwfwfwfwfe_4bab34a987",
+            "resource_type": "image"
+          }
+        },
+        "large": {
+          "name": "large_ewfwefwefwfwfwfwfwfe.PNG",
+          "hash": "large_ewfwefwefwfwfwfwfwfe_4bab34a987",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 1000,
+          "height": 538,
+          "size": 87.54,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997768/large_ewfwefwefwfwfwfwfwfe_4bab34a987.png",
+          "provider_metadata": {
+            "public_id": "large_ewfwefwefwfwfwfwfwfe_4bab34a987",
+            "resource_type": "image"
+          }
+        },
+        "medium": {
+          "name": "medium_ewfwefwefwfwfwfwfwfe.PNG",
+          "hash": "medium_ewfwefwefwfwfwfwfwfe_4bab34a987",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 750,
+          "height": 404,
+          "size": 58.55,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997769/medium_ewfwefwefwfwfwfwfwfe_4bab34a987.png",
+          "provider_metadata": {
+            "public_id": "medium_ewfwefwefwfwfwfwfwfe_4bab34a987",
+            "resource_type": "image"
+          }
+        },
+        "small": {
+          "name": "small_ewfwefwefwfwfwfwfwfe.PNG",
+          "hash": "small_ewfwefwefwfwfwfwfwfe_4bab34a987",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 500,
+          "height": 269,
+          "size": 32.46,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1627997770/small_ewfwefwefwfwfwfwfwfe_4bab34a987.png",
+          "provider_metadata": {
+            "public_id": "small_ewfwefwefwfwfwfwfwfe_4bab34a987",
+            "resource_type": "image"
+          }
+        }
+      },
+      "provider": "cloudinary",
+      "related": [
+        "610946241b51c103681f63fa"
+      ],
+      "createdAt": "2021-08-03T13:36:11.342Z",
+      "updatedAt": "2021-08-03T13:36:11.812Z",
+      "__v": 0,
+      "id": "6109464b1b51c103681f63ff"
+    },
+    "users_owner": [],
+    "orders": [],
+    "id": "610946241b51c103681f63fa"
+  },
+  {
+    "_id": "61099165b0f1150015fc1163",
+    "published_at": "2021-08-03T18:56:37.630Z",
+    "stock": 100,
+    "price": 200,
+    "name": "cimegripe",
+    "createdAt": "2021-08-03T18:56:37.641Z",
+    "updatedAt": "2021-08-03T18:58:27.713Z",
+    "__v": 0,
+    "user_creator": {
+      "confirmed": true,
+      "blocked": false,
+      "IsStore": true,
+      "_id": "6109429ff0708e0174115d82",
+      "username": "Farmacia bom dia 2",
+      "email": "julystube2@gmail.com",
+      "address": "Santa rita",
+      "cpf": " 123.456.789-09",
+      "cep": "231312321312323",
+      "provider": "local",
+      "createdAt": "2021-08-03T13:20:31.233Z",
+      "updatedAt": "2021-08-03T13:20:31.643Z",
+      "__v": 0,
+      "role": "610852de98ec041b87b3c816",
+      "id": "6109429ff0708e0174115d82"
+    },
+    "image": {
+      "_id": "610991d3b0f1150015fc1164",
+      "name": "booleanas.PNG",
+      "hash": "booleanas_6ddb6e8b5a",
+      "ext": ".PNG",
+      "mime": "image/png",
+      "size": 671.24,
+      "width": 1092,
+      "height": 642,
+      "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1628017104/booleanas_6ddb6e8b5a.png",
+      "provider_metadata": {
+        "public_id": "booleanas_6ddb6e8b5a",
+        "resource_type": "image"
+      },
+      "formats": {
+        "thumbnail": {
+          "name": "thumbnail_booleanas.PNG",
+          "hash": "thumbnail_booleanas_6ddb6e8b5a",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 245,
+          "height": 144,
+          "size": 56.2,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1628017105/thumbnail_booleanas_6ddb6e8b5a.png",
+          "provider_metadata": {
+            "public_id": "thumbnail_booleanas_6ddb6e8b5a",
+            "resource_type": "image"
+          }
+        },
+        "large": {
+          "name": "large_booleanas.PNG",
+          "hash": "large_booleanas_6ddb6e8b5a",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 1000,
+          "height": 588,
+          "size": 687.3,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1628017106/large_booleanas_6ddb6e8b5a.png",
+          "provider_metadata": {
+            "public_id": "large_booleanas_6ddb6e8b5a",
+            "resource_type": "image"
+          }
+        },
+        "medium": {
+          "name": "medium_booleanas.PNG",
+          "hash": "medium_booleanas_6ddb6e8b5a",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 750,
+          "height": 441,
+          "size": 408.91,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1628017106/medium_booleanas_6ddb6e8b5a.png",
+          "provider_metadata": {
+            "public_id": "medium_booleanas_6ddb6e8b5a",
+            "resource_type": "image"
+          }
+        },
+        "small": {
+          "name": "small_booleanas.PNG",
+          "hash": "small_booleanas_6ddb6e8b5a",
+          "ext": ".PNG",
+          "mime": "image/png",
+          "width": 500,
+          "height": 294,
+          "size": 197.16,
+          "path": null,
+          "url": "https://res.cloudinary.com/dywwplkdp/image/upload/v1628017107/small_booleanas_6ddb6e8b5a.png",
+          "provider_metadata": {
+            "public_id": "small_booleanas_6ddb6e8b5a",
+            "resource_type": "image"
+          }
+        }
+      },
+      "provider": "cloudinary",
+      "related": [
+        "61099165b0f1150015fc1163"
+      ],
+      "createdAt": "2021-08-03T18:58:27.662Z",
+      "updatedAt": "2021-08-03T18:58:27.699Z",
+      "__v": 0,
+      "id": "610991d3b0f1150015fc1164"
+    },
+    "users_owner": [],
+    "orders": [],
+    "id": "61099165b0f1150015fc1163"
+  }
+]

@@ -4,13 +4,17 @@ import { useContextProvider } from '../../services/context';
 import Product from '../../components/Product';
 import Button from '../../components/Button';
 import emotionCry from '../../assets/emotionCry.png';
+import { loadProduct } from '../../api/load-products';
 import { View, Text, FlatList, Image } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
   const { cart } = useContextProvider();
   const navigate = useNavigation();
+  useEffect(() => {
+    loadProduct();
+  }, []);
 
   return (
     <>
