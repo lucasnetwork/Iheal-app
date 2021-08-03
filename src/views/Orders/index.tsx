@@ -2,6 +2,7 @@ import styles from './styles';
 import ordersMock from './ordersMock.json';
 import Header from '../../components/Header';
 import emotionCry from '../../assets/emotionCry.png';
+import Order from '../../components/Order';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -42,32 +43,14 @@ const Orders = () => {
                 keyExtractor={item => `${item.id}`}
                 renderItem={({ item }) => (
                   <View style={styles.orderContainer}>
-                    <View style={{ flex: 1, padding: 8 }}>
-                      <View style={styles.containerProduct}>
-                        <Text
-                          style={{ ...styles.orderSize, ...styles.orderTitle }}
-                        >
-                          Total:R$ 000,00
-                        </Text>
-                        <Text
-                          style={{ ...styles.orderSize, fontWeight: '300' }}
-                        >
-                          00/00/0000
-                        </Text>
-                      </View>
-                      <View style={{ flex: 1 }}>
-                        <View style={styles.containerProduct}>
-                          <Text style={styles.orderSize}>Nome Do Produto</Text>
-                          <Text
-                            style={{ ...styles.orderSize, color: '#A8A8B3' }}
-                          >
-                            quant:1
-                          </Text>
-                          <Text style={styles.orderSize}>R$ 00,00</Text>
-                        </View>
-                      </View>
-                      <Text style={styles.clientName}>Nome do cliente</Text>
-                    </View>
+                    <Order
+                      clientName={item.clientName}
+                      date={item.date}
+                      name={item.products[0].name}
+                      price={item.products[0].price}
+                      quant={item.products[0].quantity}
+                      total={item.total}
+                    />
                     <TouchableOpacity
                       onPress={() => navigate.navigate('confirmPayment')}
                       style={styles.buttonOrder}
