@@ -24,6 +24,15 @@ export default function SignUpStore() {
     if (!name || !email || !password || !cnpj) {
       Alert.alert('Por favor preencha todos os campos');
     }
+    if (password.length < 8) {
+      Alert.alert('A senha deve ter no mínimo 8 caracteres');
+    }
+    if (cnpj.length !== 14) {
+      Alert.alert('O CNPJ deve ter 14 caracteres');
+    }
+    if (name.length < 4) {
+      Alert.alert('O nome deve ter no mínimo 4 caracteres');
+    }
   };
   function handleGoBack() {
     navigation.goBack();
@@ -56,7 +65,7 @@ export default function SignUpStore() {
           <TextInput style={styles.input} placeholder="CNPJ" />
           <TextInput style={styles.input} placeholder="E-mail" />
           <TextInput secureTextEntry style={styles.input} placeholder="Senha" />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={onCheckout}>
             <Text style={styles.buttonText}>Cadastra-se</Text>
           </TouchableOpacity>
           <View style={styles.containerSignin}>
