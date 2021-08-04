@@ -1,8 +1,9 @@
 import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
+import api from '../../config/api';
 import React, { useState } from 'react';
-
+import * as Yup from 'yup';
 import {
   View,
   Image,
@@ -12,31 +13,61 @@ import {
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useFormik } from 'formik';
 
 export default function SignUpStore() {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cnpj, setCnpj] = useState('');
-
-  const onCheckout = () => {
-    if (!name || !email || !password || !cnpj) {
-      Alert.alert('Por favor preencha todos os campos');
-    }
-    if (password.length < 8) {
-      Alert.alert('A senha deve ter no mínimo 8 caracteres');
-    }
-    if (cnpj.length !== 14) {
-      Alert.alert('O CNPJ deve ter 14 caracteres');
-    }
-    if (name.length < 4) {
-      Alert.alert('O nome deve ter no mínimo 4 caracteres');
-    }
+  const onSubmit = async () => {
+    setLoading(true);
+    await api
+      .post('/auth/local/register', {
+        username: formik.values.name,
+        password: formik.values.password,
+        email: formik.values.email,
+        IsStore: true,
+        address: formik.values.address,
+        cep: formik.values.cep,
+        cnpj: formik.values.cnpj,
+      })
+      .then(response => {
+        setLoading(false);
+        console.log(response);
+      })
+      .catch(() => {
+        setLoading(false);
+        console.log('deu errado');
+      });
   };
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      address: '',
+      password: '',
+      cep: '',
+      cnpj: '',
+    },
+    validationSchema: Yup.object().shape({
+      name: Yup.string()
+        .min(5, 'Nome deve ter no mínimo 5 caracteres')
+        .required('Required'),
+      email: Yup.string().email('E-mail inválido').required('Required'),
+      address: Yup.string().required('Required'),
+      cep: Yup.string().required('Required'),
+      password: Yup.string()
+        .min(6, 'Senha deve ter no mínimo 6 caracteres')
+        .required('Required'),
+      cnpj: Yup.string()
+        .min(14, 'CNPJ deve ter no mínimo 14 caracteres')
+        .required('Required'),
+    }),
+    onSubmit,
+  });
   function handleGoBack() {
     navigation.goBack();
   }
+
   return (
     <>
       <BackScreen title="Sou Cliente" />
@@ -59,29 +90,52 @@ export default function SignUpStore() {
           <TextInput
             style={styles.input}
             placeholder="Nome da loja"
-            onChangeText={setName}
-            value={name}
+            onChangeText={formik.handleChange('name')}
+            value={formik.values.name}
           />
+          {/* {formik.errors.name ? (
+            <Feather name="x-circle" size={24} color="red" />
+          ) : (
+            <Feather name="check-circle" size={24} color="green" />
+          )} */}
           <TextInput
             style={styles.input}
-            value={cnpj}
-            onChangeText={setCnpj}
+            value={formik.values.cnpj}
+            onChangeText={formik.handleChange('cnpj')}
             placeholder="CNPJ"
           />
+
           <TextInput
             style={styles.input}
-            value={email}
-            onChangeText={setEmail}
+            value={formik.values.email}
+            onChangeText={formik.handleChange('email')}
             placeholder="E-mail"
+          />
+          <TextInput
+            style={styles.input}
+            value={formik.values.address}
+            onChangeText={formik.handleChange('address')}
+            placeholder="address"
+          />
+          <TextInput
+            style={styles.input}
+            value={formik.values.cep}
+            onChangeText={formik.handleChange('cep')}
+            placeholder="cep"
           />
           <TextInput
             secureTextEntry
             style={styles.input}
-            value={password}
-            onChangeText={setPassword}
+            value={formik.values.password}
+            onChangeText={formik.handleChange('password')}
             placeholder="Senha"
           />
-          <TouchableOpacity style={styles.button} onPress={onCheckout}>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => formik.handleSubmit()}
+            disabled={loading}
+          >
             <Text style={styles.buttonText}>Cadastra-se</Text>
           </TouchableOpacity>
           <View style={styles.containerSignin}>
