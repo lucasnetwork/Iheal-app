@@ -32,11 +32,10 @@ export default function SignUpStore() {
       })
       .then(response => {
         setLoading(false);
-        console.log(response);
+        // navigation.navigate('Login');
       })
       .catch(() => {
         setLoading(false);
-        console.log('deu errado');
       });
   };
   const formik = useFormik({
