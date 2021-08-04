@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 
-export default function SignIn() {
+export default function SChooseUserType() {
   const navigation = useNavigation();
 
   return (
@@ -17,7 +17,7 @@ export default function SignIn() {
       </View>
       <View style={style.content}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => navigation.navigate('SignInClient')}
           style={style.cliente}
         >
           <View style={style.clienteLogo}>
@@ -26,7 +26,10 @@ export default function SignIn() {
           <Text style={style.clienteText}>Sou cliente</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={style.loja}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SignInStore')}
+          style={style.loja}
+        >
           <View style={style.lojaLogo}>
             <MaterialCommunityIcons
               name="store-outline"
