@@ -43,7 +43,7 @@ export const style = StyleSheet.create({
   },
   clienteText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   loja: {
@@ -63,7 +63,7 @@ export const style = StyleSheet.create({
   },
   lojaText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   listdivider: {
@@ -80,7 +80,7 @@ export const style = StyleSheet.create({
   },
   visitanteText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '500',
   },
   visitanteImage: {
