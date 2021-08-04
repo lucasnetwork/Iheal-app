@@ -114,7 +114,7 @@ export default function SignUpStore() {
             style={styles.input}
             value={formik.values.address}
             onChangeText={formik.handleChange('address')}
-            placeholder="address"
+            placeholder="endereço"
           />
           <TextInput
             style={styles.input}
