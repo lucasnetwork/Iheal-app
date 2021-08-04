@@ -62,9 +62,25 @@ export default function SignUpStore() {
             onChangeText={setName}
             value={name}
           />
-          <TextInput style={styles.input} placeholder="CNPJ" />
-          <TextInput style={styles.input} placeholder="E-mail" />
-          <TextInput secureTextEntry style={styles.input} placeholder="Senha" />
+          <TextInput
+            style={styles.input}
+            value={cnpj}
+            onChangeText={setCnpj}
+            placeholder="CNPJ"
+          />
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="E-mail"
+          />
+          <TextInput
+            secureTextEntry
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Senha"
+          />
           <TouchableOpacity style={styles.button} onPress={onCheckout}>
             <Text style={styles.buttonText}>Cadastra-se</Text>
           </TouchableOpacity>
