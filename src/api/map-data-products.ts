@@ -4,7 +4,8 @@ export type productData = {
   id: string;
   name: string;
   description: string;
-  priceFormat: number;
+  priceFormat: string;
+  price: number;
   image: string;
   stock: number;
   user_creator: {
@@ -29,19 +30,16 @@ export const mapData = (pagesData = [{}] as any): productData[] =>
       email: '',
       address: '',
     };
-    const {
-      id,
-      name,
-      price: priceFormat,
-      user_creator,
-      stock,
-      Description: description,
-    } = data;
-
+    const { id, name, price, stock, Description: description } = data;
+    const priceFormat = `R$ ${price
+      .toFixed(2)
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      .replace('.', ',')}`;
     return {
       id,
       name,
       priceFormat,
+      price,
       user_creator: {
         _id,
         username,
