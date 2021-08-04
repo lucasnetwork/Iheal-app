@@ -1,14 +1,30 @@
 import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function SignUpStore() {
   const navigation = useNavigation();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [cnpj, setCnpj] = useState('');
 
+  const onCheckout = () => {
+    if (!name || !email || !password || !cnpj) {
+      Alert.alert('Por favor preencha todos os campos');
+    }
+  };
   function handleGoBack() {
     navigation.goBack();
   }
@@ -31,7 +47,12 @@ export default function SignUpStore() {
           </View>
         </View>
         <View style={styles.content}>
-          <TextInput style={styles.input} placeholder="Nome da loja" />
+          <TextInput
+            style={styles.input}
+            placeholder="Nome da loja"
+            onChangeText={setName}
+            value={name}
+          />
           <TextInput style={styles.input} placeholder="CNPJ" />
           <TextInput style={styles.input} placeholder="E-mail" />
           <TextInput secureTextEntry style={styles.input} placeholder="Senha" />

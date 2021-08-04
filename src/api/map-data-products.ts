@@ -33,8 +33,8 @@ export const mapData = (pagesData = [{}] as any): productData[] =>
     const { id, name, price, stock, Description: description } = data;
     const priceFormat = `R$ ${price
       .toFixed(2)
-      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-      .replace('.', ',')}`;
+      .replace('.', ',')
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
     return {
       id,
       name,
