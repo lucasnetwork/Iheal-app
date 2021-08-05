@@ -29,6 +29,9 @@ interface constexProps {
     text: string;
   };
   createNotification(text: string): void;
+  logged: boolean;
+  login(): void;
+  logout(): void;
 }
 
 export const ContextApp = createContext({} as constexProps);
@@ -44,6 +47,15 @@ const ContextProvider: React.FC = ({ children }) => {
     total: 20580,
     totalPriceFormat: 'R$ 20.580,00',
   });
+  const [logged, setLogged] = useState(false);
+
+  function login() {
+    setLogged(true);
+  }
+
+  function logout() {
+    setLogged(false);
+  }
 
   function updateItem(newProduct: product, quantity: number) {
     const newCart = { ...cart };
@@ -165,6 +177,9 @@ const ContextProvider: React.FC = ({ children }) => {
         DeleteItem,
         showNotification,
         createNotification,
+        logout,
+        logged,
+        login,
       }}
     >
       {children}
