@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useFormik } from 'formik';
+import { TextInputMask } from 'react-native-masked-text';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUpClient() {
   const [loading, setLoading] = useState(false);
@@ -22,9 +24,11 @@ export default function SignUpClient() {
         cep: formik.values.cep,
         cpf: formik.values.cpf,
       })
-      .then(response => {
+      .then(async response => {
         setLoading(false);
-        // navigation.navigate('Login');
+        await AsyncStorage.setItem('token', response.data.jwt);
+        api.defaults.headers.Authorization = `Bearer ${response.data.jwt}`;
+        console.log(api.defaults.headers.Authorization);
       })
       .catch(e => {
         setLoading(false);
@@ -101,7 +105,8 @@ export default function SignUpClient() {
             onChangeText={formik.handleChange('cep')}
             value={formik.values.cep}
           />
-          <TextInput
+          <TextInputMask
+            type="cpf"
             style={styles.input}
             placeholder="CPF"
             onChangeText={formik.handleChange('cpf')}

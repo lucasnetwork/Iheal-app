@@ -1,13 +1,66 @@
 import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
-import React from 'react';
+import api from '../../config/api';
+import React, { useState } from 'react';
 
-import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignInClient() {
   const navigate = useNavigation();
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async () => {
+    setLoading(true);
+    await api
+      .post('/auth/local', {
+        identifier: formik.values.email,
+        password: formik.values.password,
+      })
+      .then(async response => {
+        setLoading(false);
+        if (response.data.IsStore === true) {
+          Alert.alert(
+            'Sua conta não possui autorização para fazer login como cliente.'
+          );
+        }
+        await AsyncStorage.setItem('token', response.data.jwt);
+        api.defaults.headers.Authorization = `Bearer ${response.data.jwt}`;
+        console.log(api.defaults.headers.Authorization);
+      })
+      .catch(e => {
+        setLoading(false);
+        if (e.response.status === 400) {
+          Alert.alert('Algo deu errado revise sua email e senha');
+        }
+      });
+  };
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+
+      password: '',
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string().email('E-mail inválido').required('Required'),
+
+      password: Yup.string()
+        .min(6, 'Senha deve ter no mínimo 6 caracteres')
+        .required('Required'),
+    }),
+    onSubmit,
+  });
   return (
     <>
       <BackScreen title="Sou Cliente" />
@@ -19,9 +72,24 @@ export default function SignInClient() {
         </View>
         <View style={styles.content}>
           <Text style={styles.textBack}>Bem vindo de Volta!</Text>
-          <TextInput style={styles.input} placeholder="E-mail" />
-          <TextInput secureTextEntry style={styles.input} placeholder="Senha" />
-          <TouchableOpacity style={styles.button}>
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            onChangeText={formik.handleChange('email')}
+            value={formik.values.email}
+          />
+          <TextInput
+            secureTextEntry
+            style={styles.input}
+            placeholder="Senha"
+            onChangeText={formik.handleChange('password')}
+            value={formik.values.password}
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => formik.handleSubmit()}
+            disabled={loading}
+          >
             <Text style={styles.buttonText}>Entrar</Text>
           </TouchableOpacity>
           <View style={styles.containerSignin}>

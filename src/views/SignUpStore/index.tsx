@@ -2,6 +2,7 @@ import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
+import { masck } from '../../utils/masks';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import {
@@ -14,6 +15,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useFormik } from 'formik';
+import { TextInputMask } from 'react-native-masked-text';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUpStore() {
   const [loading, setLoading] = useState(false);
@@ -30,12 +33,16 @@ export default function SignUpStore() {
         cep: formik.values.cep,
         cnpj: formik.values.cnpj,
       })
-      .then(response => {
+      .then(async response => {
         setLoading(false);
-        // navigation.navigate('Login');
+
+        await AsyncStorage.setItem('token', response.data.jwt);
+        api.defaults.headers.Authorization = `Bearer ${response.data.jwt}`;
+        console.log(api.defaults.headers.Authorization);
       })
       .catch(() => {
         setLoading(false);
+        console.log('oi errado');
       });
   };
   const formik = useFormik({
@@ -58,6 +65,7 @@ export default function SignUpStore() {
         .min(6, 'Senha deve ter no mínimo 6 caracteres')
         .required('Required'),
       cnpj: Yup.string()
+        .matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)
         .min(14, 'CNPJ deve ter no mínimo 14 caracteres')
         .required('Required'),
     }),
@@ -93,7 +101,8 @@ export default function SignUpStore() {
             value={formik.values.name}
           />
 
-          <TextInput
+          <TextInputMask
+            type="cnpj"
             style={styles.input}
             value={formik.values.cnpj}
             onChangeText={formik.handleChange('cnpj')}
