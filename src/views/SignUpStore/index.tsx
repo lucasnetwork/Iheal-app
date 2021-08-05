@@ -92,11 +92,7 @@ export default function SignUpStore() {
             onChangeText={formik.handleChange('name')}
             value={formik.values.name}
           />
-          {/* {formik.errors.name ? (
-            <Feather name="x-circle" size={24} color="red" />
-          ) : (
-            <Feather name="check-circle" size={24} color="green" />
-          )} */}
+
           <TextInput
             style={styles.input}
             value={formik.values.cnpj}
