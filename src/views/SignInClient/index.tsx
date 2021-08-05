@@ -36,8 +36,6 @@ export default function SignInClient() {
           );
         }
         await AsyncStorage.setItem('token', response.data.jwt);
-        api.defaults.headers.Authorization = `Bearer ${response.data.jwt}`;
-        console.log(api.defaults.headers.Authorization);
       })
       .catch(e => {
         setLoading(false);

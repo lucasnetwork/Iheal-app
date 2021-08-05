@@ -27,7 +27,6 @@ export default function SignUpClient() {
       .then(async response => {
         setLoading(false);
         await AsyncStorage.setItem('token', response.data.jwt);
-        api.defaults.headers.Authorization = `Bearer ${response.data.jwt}`;
       })
       .catch(e => {
         setLoading(false);

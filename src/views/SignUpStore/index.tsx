@@ -37,12 +37,10 @@ export default function SignUpStore() {
         setLoading(false);
 
         await AsyncStorage.setItem('token', response.data.jwt);
-        api.defaults.headers.Authorization = `Bearer ${response.data.jwt}`;
-        console.log(api.defaults.headers.Authorization);
       })
       .catch(() => {
         setLoading(false);
-        console.log('oi errado');
+        Alert.alert('Revise seu email ou senha e tente novamente');
       });
   };
   const formik = useFormik({
