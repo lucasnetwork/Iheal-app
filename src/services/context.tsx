@@ -7,7 +7,7 @@ type product = {
   price: number;
   quantity?: number;
   total?: number;
-  priceFormat?: string;
+  priceFormat: string;
   priceFormatTotal?: string;
   description: string;
   image: string;
@@ -24,11 +24,20 @@ interface constexProps {
   cart: cartProps;
   addItem(newProduct: product, quantity: number): void;
   DeleteItem(id: number, quantity: number): void;
+  showNotification: {
+    show: boolean;
+    text: string;
+  };
+  createNotification(text: string): void;
 }
 
 export const ContextApp = createContext({} as constexProps);
 
 const ContextProvider: React.FC = ({ children }) => {
+  const [showNotification, setShowNotification] = useState({
+    show: false,
+    text: 'mensagem de notificação',
+  });
   const [cart, setCart] = useState<cartProps>({
     products: productsMock,
     totalQuantity: 7,
@@ -74,7 +83,6 @@ const ContextProvider: React.FC = ({ children }) => {
         priceFormatTotal: `R$ ${(newProduct.price * quantity)
           .toFixed(2)
           .replace('.', ',')}`,
-        priceFormat: `R$ ${newProduct.price.toFixed(2).replace('.', ',')}`,
       },
     ];
     newCart.total += newProduct.price * quantity;
@@ -136,8 +144,29 @@ const ContextProvider: React.FC = ({ children }) => {
     setCart(newCart);
   }
 
+  function createNotification(text: string) {
+    setShowNotification({
+      show: true,
+      text,
+    });
+    setTimeout(() => {
+      setShowNotification(props => ({
+        ...props,
+        show: false,
+      }));
+    }, 2000);
+  }
+
   return (
-    <ContextApp.Provider value={{ cart, addItem, DeleteItem }}>
+    <ContextApp.Provider
+      value={{
+        cart,
+        addItem,
+        DeleteItem,
+        showNotification,
+        createNotification,
+      }}
+    >
       {children}
     </ContextApp.Provider>
   );

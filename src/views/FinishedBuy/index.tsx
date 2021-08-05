@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 
 const FinishedBuy = () => {
-  const { cart } = useContextProvider();
+  const { cart, createNotification } = useContextProvider();
   const navigate = useNavigation();
   return (
     <>
@@ -70,7 +70,12 @@ const FinishedBuy = () => {
             <Text style={styles.textButton}>*Pagamento em dinheiro</Text>
           </View>
           <View style={styles.containerButton}>
-            <Button small>Confirmar</Button>
+            <Button
+              small
+              onPress={() => createNotification('Compra realizada')}
+            >
+              Confirmar
+            </Button>
           </View>
         </View>
       </View>
