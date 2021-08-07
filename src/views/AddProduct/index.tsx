@@ -2,7 +2,8 @@ import styles from './styles';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import api from '../../config/api';
-import React from 'react';
+import { useContextProvider } from '../../services/context';
+import React, { useState } from 'react';
 import {
   View,
   TextInput,
@@ -10,7 +11,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
-  Alert,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useFormik } from 'formik';
@@ -25,54 +25,62 @@ const initialValues = {
 };
 
 const AddProduct = () => {
-  const onSubmit = async () => {
-    const convertPrice = parseFloat(formik.values.price);
-    await api
-      .post(
-        '/products',
-        {
-          name: formik.values.name,
-          price: convertPrice,
-          stock: formik.values.quantity,
-          Description: formik.values.description,
-        },
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMDk0MjlmZjA3MDhlMDE3NDExNWQ4MiIsImlhdCI6MTYyNzk5NjgzMiwiZXhwIjoxNjMwNTg4ODMyfQ.bH6EFQ94VZbssTVvr4OyCUetSB2qGDCr0Qp_bUz_LXA`,
-          },
-        }
-      )
-      .then(async response => {
-        api
-          .post(
-            '/upload',
-            {
-              files: formik.values.image,
-              refId: response.data.id,
-              ref: 'product',
-              field: 'image',
-            },
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMDk0MjlmZjA3MDhlMDE3NDExNWQ4MiIsImlhdCI6MTYyNzk5NjgzMiwiZXhwIjoxNjMwNTg4ODMyfQ.bH6EFQ94VZbssTVvr4OyCUetSB2qGDCr0Qp_bUz_LXA`,
-              },
-            }
-          )
-          .then(async res => {
-            console.log(res);
-          })
-          .catch(error => {
-            console.log(`${error}`);
-          });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  const [_id, setId] = useState();
+  const { createNotification } = useContextProvider();
+  const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues,
-    onSubmit,
+    onSubmit: async values => {
+      console.log(values);
+      if (loading) {
+        return;
+      }
+      setLoading(true);
+      let imageUrl = '';
+
+      try {
+        console.log({
+          name: values.name,
+          price: values.price,
+          stock: values.quantity,
+          Description: values.description,
+        });
+        const response = await api.post('/products', {
+          name: values.name,
+          price: values.price,
+          stock: values.quantity,
+          Description: values.description,
+        });
+        createNotification('Produto Cadastrado!');
+        setId(response.data.id);
+      } catch (e) {
+        createNotification('Produto não cadastrado, tente novamente');
+      }
+      try {
+        // eslint-disable-next-line no-undef
+        const formData = new FormData();
+        console.log(`imagemaqui${values.image}`);
+        formData.append('files', {
+          uri: values.image,
+          name: 'image434324.jpg',
+          type: 'image/jpeg',
+        });
+        formData.append('refId', `${_id}`);
+        formData.append('ref', 'product');
+        formData.append('field', 'image');
+        const uploadresponse = await api.post('/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        imageUrl = uploadresponse.data[0].url;
+      } catch (e) {
+        createNotification('Imagem não enviada, tente novamente');
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
+    },
   });
 
   async function handleImage() {
@@ -94,7 +102,7 @@ const AddProduct = () => {
     console.log(result);
 
     if (!result.cancelled) {
-      formik.setFieldValue('image', result);
+      formik.setFieldValue('image', result.uri);
     }
   }
 
