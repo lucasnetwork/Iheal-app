@@ -40,7 +40,7 @@ export default function SignInStore() {
       .catch(e => {
         setLoading(false);
         if (e.response.status === 400) {
-          Alert.alert('Algo deu errado revise sua email e senha');
+          Alert.alert('Algo deu errado revise seu email e senha');
         }
       });
   };

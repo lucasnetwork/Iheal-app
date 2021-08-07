@@ -1,6 +1,7 @@
 import styles from './styles';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
+import api from '../../config/api';
 import React from 'react';
 import {
   View,
@@ -9,6 +10,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
+  Alert,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useFormik } from 'formik';
@@ -23,11 +25,54 @@ const initialValues = {
 };
 
 const AddProduct = () => {
+  const onSubmit = async () => {
+    const convertPrice = parseFloat(formik.values.price);
+    await api
+      .post(
+        '/products',
+        {
+          name: formik.values.name,
+          price: convertPrice,
+          stock: formik.values.quantity,
+          Description: formik.values.description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMDk0MjlmZjA3MDhlMDE3NDExNWQ4MiIsImlhdCI6MTYyNzk5NjgzMiwiZXhwIjoxNjMwNTg4ODMyfQ.bH6EFQ94VZbssTVvr4OyCUetSB2qGDCr0Qp_bUz_LXA`,
+          },
+        }
+      )
+      .then(async response => {
+        api
+          .post(
+            '/upload',
+            {
+              files: formik.values.image,
+              refId: response.data.id,
+              ref: 'product',
+              field: 'image',
+            },
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMDk0MjlmZjA3MDhlMDE3NDExNWQ4MiIsImlhdCI6MTYyNzk5NjgzMiwiZXhwIjoxNjMwNTg4ODMyfQ.bH6EFQ94VZbssTVvr4OyCUetSB2qGDCr0Qp_bUz_LXA`,
+              },
+            }
+          )
+          .then(async res => {
+            console.log(res);
+          })
+          .catch(error => {
+            console.log(`${error}`);
+          });
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
   const formik = useFormik({
     initialValues,
-    onSubmit: values => {
-      console.log(values);
-    },
+    onSubmit,
   });
 
   async function handleImage() {
@@ -49,7 +94,7 @@ const AddProduct = () => {
     console.log(result);
 
     if (!result.cancelled) {
-      formik.setFieldValue('image', result.uri);
+      formik.setFieldValue('image', result);
     }
   }
 
