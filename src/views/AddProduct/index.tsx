@@ -1,7 +1,9 @@
 import styles from './styles';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import React from 'react';
+import api from '../../config/api';
+import { useContextProvider } from '../../services/context';
+import React, { useState } from 'react';
 import {
   View,
   TextInput,
@@ -23,10 +25,59 @@ const initialValues = {
 };
 
 const AddProduct = () => {
+  const { createNotification } = useContextProvider();
+  const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues,
-    onSubmit: values => {
+    onSubmit: async values => {
       console.log(values);
+      if (loading) {
+        return;
+      }
+      setLoading(true);
+      let imageUrl = '';
+      try {
+        const formData = new FormData();
+        formData.append('files', {
+          uri: values.image,
+          name: 'image434324.jpg',
+          type: 'image/jpeg',
+        });
+        const uploadresponse = await api.post('upload', formData);
+        imageUrl = uploadresponse.data[0].url;
+        console.log(uploadresponse.data[0].url);
+      } catch (e) {
+        console.log('e.response');
+        console.log(e.response);
+        createNotification('Imagem não enviada, tente novamente');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        console.log({
+          name: values.name,
+          price: values.price,
+          stock: values.quantity,
+          Description: values.description,
+          image: imageUrl,
+        });
+        const response = await api.post('products', {
+          name: values.name,
+          price: values.price,
+          stock: values.quantity,
+          Description: values.description,
+          image: imageUrl,
+        });
+        createNotification('Produto Cadastrado!');
+        console.log(response);
+      } catch (e) {
+        console.log('e');
+        console.log(e.response);
+        createNotification('Produto não cadastrado, tente novamente');
+      }
+
+      setLoading(false);
     },
   });
 

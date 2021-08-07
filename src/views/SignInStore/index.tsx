@@ -36,6 +36,7 @@ export default function SignInStore() {
           );
         }
         await AsyncStorage.setItem('token', response.data.jwt);
+        navigate.navigate('shoppingTabs');
       })
       .catch(e => {
         setLoading(false);

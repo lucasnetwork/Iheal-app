@@ -3,6 +3,7 @@ import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
 import { masck } from '../../utils/masks';
+import { useContextProvider } from '../../services/context';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import {
@@ -20,11 +21,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUpStore() {
   const [loading, setLoading] = useState(false);
+  const { createNotification } = useContextProvider();
   const navigation = useNavigation();
-  const onSubmit = async () => {
+  const onSubmit = async values => {
     setLoading(true);
-    await api
-      .post('/auth/local/register', {
+    console.log(values);
+    try {
+      const response = await api.post('/auth/local/register', {
         username: formik.values.name,
         password: formik.values.password,
         email: formik.values.email,
@@ -32,16 +35,16 @@ export default function SignUpStore() {
         address: formik.values.address,
         cep: formik.values.cep,
         cnpj: formik.values.cnpj,
-      })
-      .then(async response => {
-        setLoading(false);
-
-        await AsyncStorage.setItem('token', response.data.jwt);
-      })
-      .catch(() => {
-        setLoading(false);
-        Alert.alert('Revise seu email ou senha e tente novamente');
       });
+      setLoading(false);
+      console.log(response);
+
+      await AsyncStorage.setItem('token', response.data.jwt);
+      navigate.navigate('shoppingTabs');
+    } catch {
+      setLoading(false);
+      createNotification('Revise seu email ou senha e tente novamente');
+    }
   };
   const formik = useFormik({
     initialValues: {

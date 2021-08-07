@@ -21,6 +21,7 @@
     "react/react-in-jsx-scope": "off",
     "consistent-return": "off",
     "react/prop-types": "off",
+    "no-undef": "off",
     "no-unused-vars": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [
