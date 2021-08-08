@@ -5,6 +5,8 @@ import Product from '../../components/Product';
 import Button from '../../components/Button';
 import emotionCry from '../../assets/emotionCry.png';
 import { loadProduct } from '../../api/load-products';
+import api from '../../config/api';
+import { mapData } from '../../api/map-data-products';
 import { View, Text, FlatList, Image } from 'react-native';
 import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -15,7 +17,18 @@ const Cart = () => {
   useEffect(() => {
     loadProduct();
   }, []);
-
+  const CartOrder = async () => {
+    await api
+      .get('/orders', {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMDk0MjA0ZjA3MDhlMDE3NDExNWQ3ZiIsImlhdCI6MTYyNzk5NjY3NywiZXhwIjoxNjMwNTg4Njc3fQ.HOHZlVjRH9cNYYbj2-hfI-38_3YCRbI0DcG3gY_av5Q`,
+        },
+      })
+      .then(response => {
+        const newOrder = mapData(response.data);
+        console.log(newOrder);
+      });
+  };
   return (
     <>
       <Header />

@@ -59,7 +59,7 @@ const AddProduct = () => {
       try {
         // eslint-disable-next-line no-undef
         const formData = new FormData();
-        console.log(`imagemaqui${values.image}`);
+
         formData.append('files', {
           uri: values.image,
           name: 'image434324.jpg',
