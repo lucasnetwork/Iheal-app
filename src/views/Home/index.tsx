@@ -1,7 +1,7 @@
 import styles from './styles';
 import Product from '../../components/Product';
 import Header from '../../components/Header';
-import { loadProduct } from '../../api/load-products';
+
 import api from '../../config/api';
 import { mapData } from '../../api/map-data-products';
 import React, { useState, useEffect } from 'react';
@@ -12,8 +12,8 @@ import { FlatList, TextInput } from 'react-native-gesture-handler';
 const Home = () => {
   const [products, setProducts] = useState([{}]);
   const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const loadProductt = async (slug = '') => {
+  const [searchResults, setSearchResults] = useState([{}]);
+  const loadProduct = async () => {
     await api
       .get(`/products`)
       .then(response => {
@@ -25,11 +25,10 @@ const Home = () => {
       });
   };
   useEffect(() => {
-    loadProductt();
+    loadProduct();
   }, []);
 
   const searchProduct = (text: any) => {
-    console.log(text);
     if (text) {
       const newData = products.filter(product => {
         const itemData = product.name
@@ -49,7 +48,7 @@ const Home = () => {
       setSearchText(text);
     }
   };
-  console.log(searchResults.length);
+
   return (
     <>
       <Header />
@@ -67,7 +66,7 @@ const Home = () => {
         <Text style={styles.title}>Produtos Disponivel</Text>
         <>
           <View style={styles.containerProducts}>
-            {searchResults.length > 0 ? (
+            {searchResults.length > 1 ? (
               <FlatList
                 contentContainerStyle={{
                   paddingHorizontal: 24,

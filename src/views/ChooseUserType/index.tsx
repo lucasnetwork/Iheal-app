@@ -42,7 +42,7 @@ export default function SChooseUserType() {
         <View style={style.listdivider} />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('clientTab')}
+          onPress={() => navigation.navigate('productDetail')}
           style={style.visitante}
         >
           <Text style={style.visitanteText}>Entrar como visitante</Text>
