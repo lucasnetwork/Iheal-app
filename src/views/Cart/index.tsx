@@ -18,16 +18,10 @@ const Cart = () => {
     loadProduct();
   }, []);
   const CartOrder = async () => {
-    await api
-      .get('/orders', {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMDk0MjA0ZjA3MDhlMDE3NDExNWQ3ZiIsImlhdCI6MTYyNzk5NjY3NywiZXhwIjoxNjMwNTg4Njc3fQ.HOHZlVjRH9cNYYbj2-hfI-38_3YCRbI0DcG3gY_av5Q`,
-        },
-      })
-      .then(response => {
-        const newOrder = mapData(response.data);
-        console.log(newOrder);
-      });
+    await api.get('/orders', {}).then(response => {
+      const newOrder = mapData(response.data);
+      console.log(newOrder);
+    });
   };
   return (
     <>
