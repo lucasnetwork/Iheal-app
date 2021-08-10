@@ -3,11 +3,13 @@ import Button from '../../components/Button';
 import Header from '../../components/Header';
 import ordersMock from '../Orders/ordersMock.json';
 import Order from '../../components/Order';
+import { useContextProviderAuth } from '../../services/contextAuth';
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Account = () => {
+  const { userData } = useContextProviderAuth();
   const navigate = useNavigation();
   const [orders, setOrders] = useState<
     Array<{
@@ -49,8 +51,12 @@ const Account = () => {
         </View> */}
         <View style={{ flex: 1, alignSelf: 'stretch' }}>
           <View style={styles.containerTitle}>
-            <Text style={styles.titleShop}>Olá, Drogaria Melo </Text>
-            <Text style={styles.email}>drogariameno@gmail.com </Text>
+            <Text style={styles.titleShop}>
+              Olá, {userData ? userData?.user.username : 'visitante'}{' '}
+            </Text>
+            <Text style={styles.email}>
+              {userData ? userData?.user.email : ''}{' '}
+            </Text>
           </View>
           <View style={{ flex: 1, alignSelf: 'stretch' }}>
             <Text style={styles.historyTitle}>Histórico de vendas</Text>

@@ -2,7 +2,9 @@ import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
-import React, { useState } from 'react';
+
+import { useContextProviderAuth } from '../../services/contextAuth';
+import React, { useState, useContext } from 'react';
 
 import {
   View,
@@ -18,6 +20,7 @@ import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignInClient() {
+  const { setUserData } = useContextProviderAuth();
   const navigate = useNavigation();
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +38,11 @@ export default function SignInClient() {
             'Sua conta não possui autorização para fazer login como cliente.'
           );
         }
+
+        setUserData({
+          token: response.data.jwt,
+          user: response.data.user,
+        });
         await AsyncStorage.setItem('token', response.data.jwt);
         navigate.navigate('clientTab');
       })

@@ -4,12 +4,14 @@ import Header from '../../components/Header';
 
 import api from '../../config/api';
 import { mapData } from '../../api/map-data-products';
+import { useContextProviderAuth } from '../../services/contextAuth';
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { AntDesign, Feather } from '@expo/vector-icons';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
 const Home = () => {
+  const { userData } = useContextProviderAuth();
   const [products, setProducts] = useState([{}]);
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
@@ -53,7 +55,9 @@ const Home = () => {
     <>
       <Header />
       <View style={styles.container}>
-        <Text style={styles.name}>Olá, Drogaria Melo</Text>
+        <Text style={styles.name}>
+          Olá, {userData ? userData?.user.username : 'visitante'}
+        </Text>
         <View style={styles.searchContainer}>
           <TextInput
             style={{ height: 40, flex: 1 }}

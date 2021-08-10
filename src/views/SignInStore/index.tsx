@@ -2,6 +2,7 @@ import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
+import { useContextProviderAuth } from '../../services/contextAuth';
 import React, { useState } from 'react';
 
 import {
@@ -18,6 +19,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 export default function SignInStore() {
+  const { setUserData } = useContextProviderAuth();
   const navigate = useNavigation();
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +37,10 @@ export default function SignInStore() {
             'Sua conta não possui autorização para fazer login como loja.'
           );
         }
+        setUserData({
+          token: response.data.jwt,
+          user: response.data.user,
+        });
         await AsyncStorage.setItem('token', response.data.jwt);
         navigate.navigate('shoppingTabs');
       })

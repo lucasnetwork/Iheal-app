@@ -2,6 +2,7 @@ import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
+import { useContextProviderAuth } from '../../services/contextAuth';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
@@ -11,6 +12,7 @@ import { TextInputMask } from 'react-native-masked-text';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUpClient() {
+  const { setUserData } = useContextProviderAuth();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const onSubmit = async () => {
@@ -26,6 +28,10 @@ export default function SignUpClient() {
       })
       .then(async response => {
         setLoading(false);
+        setUserData({
+          token: response.data.jwt,
+          user: response.data.user,
+        });
         await AsyncStorage.setItem('token', response.data.jwt);
         navigation.navigate('clientTab');
       })

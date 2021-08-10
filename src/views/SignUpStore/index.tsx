@@ -4,6 +4,7 @@ import logo from '../../assets/logo.png';
 import api from '../../config/api';
 import { masck } from '../../utils/masks';
 import { useContextProvider } from '../../services/context';
+import { useContextProviderAuth } from '../../services/contextAuth';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import {
@@ -20,6 +21,7 @@ import { TextInputMask } from 'react-native-masked-text';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUpStore() {
+  const { setUserData } = useContextProviderAuth();
   const [loading, setLoading] = useState(false);
   const { createNotification } = useContextProvider();
   const navigation = useNavigation();
@@ -35,25 +37,16 @@ export default function SignUpStore() {
         address: formik.values.address,
         cep: formik.values.cep,
         cnpj: formik.values.cnpj,
-<<<<<<< HEAD
-      })
-      .then(async response => {
-        setLoading(false);
-
-        await AsyncStorage.setItem('token', response.data.jwt);
-        navigation.navigate('shoppingTabs');
-      })
-      .catch(() => {
-        setLoading(false);
-        Alert.alert('Revise seu email ou senha e tente novamente');
-=======
->>>>>>> 3c49828c96890aa9bbdeddfacd1d6f01eb14cbd3
       });
+
       setLoading(false);
       console.log(response);
-
+      setUserData({
+        token: response.data.jwt,
+        user: response.data.user,
+      });
       await AsyncStorage.setItem('token', response.data.jwt);
-      navigate.navigate('shoppingTabs');
+      navigation.navigate('shoppingTabs');
     } catch {
       setLoading(false);
       createNotification('Revise seu email ou senha e tente novamente');

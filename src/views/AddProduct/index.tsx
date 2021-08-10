@@ -25,10 +25,7 @@ const initialValues = {
 };
 
 const AddProduct = () => {
-<<<<<<< HEAD
   const [_id, setId] = useState();
-=======
->>>>>>> 3c49828c96890aa9bbdeddfacd1d6f01eb14cbd3
   const { createNotification } = useContextProvider();
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
@@ -40,26 +37,6 @@ const AddProduct = () => {
       }
       setLoading(true);
       let imageUrl = '';
-<<<<<<< HEAD
-=======
-      try {
-        const formData = new FormData();
-        formData.append('files', {
-          uri: values.image,
-          name: 'image434324.jpg',
-          type: 'image/jpeg',
-        });
-        const uploadresponse = await api.post('upload', formData);
-        imageUrl = uploadresponse.data[0].url;
-        console.log(uploadresponse.data[0].url);
-      } catch (e) {
-        console.log('e.response');
-        console.log(e.response);
-        createNotification('Imagem não enviada, tente novamente');
-        setLoading(false);
-        return;
-      }
->>>>>>> 3c49828c96890aa9bbdeddfacd1d6f01eb14cbd3
 
       try {
         console.log({
@@ -67,19 +44,12 @@ const AddProduct = () => {
           price: values.price,
           stock: values.quantity,
           Description: values.description,
-<<<<<<< HEAD
         });
         const response = await api.post('/products', {
-=======
-          image: imageUrl,
-        });
-        const response = await api.post('products', {
->>>>>>> 3c49828c96890aa9bbdeddfacd1d6f01eb14cbd3
           name: values.name,
           price: values.price,
           stock: values.quantity,
           Description: values.description,
-<<<<<<< HEAD
         });
         createNotification('Produto Cadastrado!');
         setId(response.data.id);
@@ -109,18 +79,6 @@ const AddProduct = () => {
         setLoading(false);
         return;
       }
-=======
-          image: imageUrl,
-        });
-        createNotification('Produto Cadastrado!');
-        console.log(response);
-      } catch (e) {
-        console.log('e');
-        console.log(e.response);
-        createNotification('Produto não cadastrado, tente novamente');
-      }
-
->>>>>>> 3c49828c96890aa9bbdeddfacd1d6f01eb14cbd3
       setLoading(false);
     },
   });

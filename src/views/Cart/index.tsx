@@ -20,7 +20,6 @@ const Cart = () => {
   const CartOrder = async () => {
     await api.get('/orders', {}).then(response => {
       const newOrder = mapData(response.data);
-      console.log(newOrder);
     });
   };
   return (
