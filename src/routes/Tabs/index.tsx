@@ -1,4 +1,5 @@
 import Cart from '../../views/Cart';
+import Home from '../../views/Home';
 import Account from '../../views/Account';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
@@ -94,7 +95,7 @@ function MyTabs() {
         inactiveBackgroundColor: '#11BAFD',
       }}
     >
-      <Screen name="products" component={Cart} />
+      <Screen name="products" component={Home} />
       <Screen name="cart" component={Cart} />
       <Screen name="account" component={Account} />
     </Navigator>

@@ -26,6 +26,7 @@ const AddProduct = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: values => {
+      // eslint-disable-next-line no-console
       console.log(values);
     },
   });
@@ -46,6 +47,7 @@ const AddProduct = () => {
       quality: 1,
     });
 
+    // eslint-disable-next-line no-console
     console.log(result);
 
     if (!result.cancelled) {
