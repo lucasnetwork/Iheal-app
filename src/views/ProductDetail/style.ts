@@ -4,6 +4,7 @@ export default StyleSheet.create({
   root: {
     flex: 1,
     padding: 10,
+    backgroundColor: '#fff',
   },
   image: {
     margin: 10,
@@ -11,12 +12,10 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   detail: {
-    marginTop: 35,
+    marginTop: 24,
     marginLeft: 20,
-
     fontWeight: 'bold',
     fontSize: 13.8,
-
     bottom: 3,
     lineHeight: 16,
     color: '#000000',
@@ -37,6 +36,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 20,
+    marginBottom: 10,
   },
   stripe: {
     top: 15,
@@ -50,20 +50,29 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
     marginHorizontal: 20,
-    bottom: 3,
-    lineHeight: 16,
+    bottom: 5,
+    lineHeight: 15,
     color: '#000000',
   },
   description: {
     marginHorizontal: 20,
-    marginVertical: 6,
+    marginTop: 10,
+    bottom: 2,
+    lineHeight: 15,
   },
   nameStore: {
     marginHorizontal: 20,
     fontSize: 12,
     fontWeight: '400',
     color: '#01579B',
-    lineHeight: 13,
+    lineHeight: 12,
     right: 8,
+  },
+  footer: {
+    flexDirection: 'row',
+    marginBottom: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });

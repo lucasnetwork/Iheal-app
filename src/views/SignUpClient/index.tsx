@@ -27,6 +27,7 @@ export default function SignUpClient() {
       .then(async response => {
         setLoading(false);
         await AsyncStorage.setItem('token', response.data.jwt);
+        navigation.navigate('clientTab');
       })
       .catch(e => {
         setLoading(false);

@@ -36,6 +36,7 @@ export default function SignInClient() {
           );
         }
         await AsyncStorage.setItem('token', response.data.jwt);
+        navigate.navigate('clientTab');
       })
       .catch(e => {
         setLoading(false);

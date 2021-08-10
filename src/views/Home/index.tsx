@@ -77,6 +77,7 @@ const Home = () => {
                   <View style={styles.productContainer}>
                     <Product
                       product={{
+                        id: item.id,
                         name: item.name,
                         description: item.description,
                         priceFormat: item.priceFormat || '',
@@ -97,6 +98,7 @@ const Home = () => {
                   <View style={styles.productContainer}>
                     <Product
                       product={{
+                        id: item.id,
                         name: item.name,
                         description: item.description,
                         priceFormat: item.priceFormat || '',

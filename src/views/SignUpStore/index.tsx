@@ -37,6 +37,7 @@ export default function SignUpStore() {
         setLoading(false);
 
         await AsyncStorage.setItem('token', response.data.jwt);
+        navigation.navigate('shoppingTabs');
       })
       .catch(() => {
         setLoading(false);
