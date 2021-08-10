@@ -42,10 +42,10 @@ const ContextProvider: React.FC = ({ children }) => {
     text: 'mensagem de notificação',
   });
   const [cart, setCart] = useState<cartProps>({
-    products: productsMock,
-    totalQuantity: 7,
-    total: 20580,
-    totalPriceFormat: 'R$ 20.580,00',
+    products: [],
+    totalQuantity: 0,
+    total: 0,
+    totalPriceFormat: 'R$ 0,00',
   });
   const [logged, setLogged] = useState(false);
 

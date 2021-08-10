@@ -2,6 +2,7 @@ import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
+import { useContextProvider } from '../../services/context';
 import React, { useState } from 'react';
 
 import {
@@ -19,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignInClient() {
   const navigate = useNavigation();
+  const { login } = useContextProvider();
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
@@ -36,6 +38,7 @@ export default function SignInClient() {
           );
         }
         await AsyncStorage.setItem('token', response.data.jwt);
+        login();
         navigate.navigate('clientTab');
       })
       .catch(e => {

@@ -35,25 +35,12 @@ export default function SignUpStore() {
         address: formik.values.address,
         cep: formik.values.cep,
         cnpj: formik.values.cnpj,
-<<<<<<< HEAD
-      })
-      .then(async response => {
-        setLoading(false);
-
-        await AsyncStorage.setItem('token', response.data.jwt);
-        navigation.navigate('shoppingTabs');
-      })
-      .catch(() => {
-        setLoading(false);
-        Alert.alert('Revise seu email ou senha e tente novamente');
-=======
->>>>>>> 3c49828c96890aa9bbdeddfacd1d6f01eb14cbd3
       });
       setLoading(false);
       console.log(response);
 
       await AsyncStorage.setItem('token', response.data.jwt);
-      navigate.navigate('shoppingTabs');
+      navigation.navigate('shoppingTabs');
     } catch {
       setLoading(false);
       createNotification('Revise seu email ou senha e tente novamente');

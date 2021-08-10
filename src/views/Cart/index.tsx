@@ -5,24 +5,17 @@ import Product from '../../components/Product';
 import Button from '../../components/Button';
 import emotionCry from '../../assets/emotionCry.png';
 import { loadProduct } from '../../api/load-products';
-import api from '../../config/api';
-import { mapData } from '../../api/map-data-products';
 import { View, Text, FlatList, Image } from 'react-native';
 import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
-  const { cart } = useContextProvider();
+  const { cart, logged } = useContextProvider();
   const navigate = useNavigation();
   useEffect(() => {
     loadProduct();
   }, []);
-  const CartOrder = async () => {
-    await api.get('/orders', {}).then(response => {
-      const newOrder = mapData(response.data);
-      console.log(newOrder);
-    });
-  };
+
   return (
     <>
       <Header />
@@ -59,9 +52,18 @@ const Cart = () => {
                 Total: {cart.totalPriceFormat}
               </Text>
               <View style={styles.buttonContainer}>
-                <Button onPress={() => navigate.navigate('adress')} small>
-                  Comprar
-                </Button>
+                {!logged ? (
+                  <Button
+                    onPress={() => navigate.navigate('SignUpClient')}
+                    small
+                  >
+                    Entrar
+                  </Button>
+                ) : (
+                  <Button onPress={() => navigate.navigate('adress')} small>
+                    Comprar
+                  </Button>
+                )}
               </View>
             </View>
           </>

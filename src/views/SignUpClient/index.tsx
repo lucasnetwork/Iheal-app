@@ -2,6 +2,7 @@ import { styles } from './styles';
 import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
+import { useContextProvider } from '../../services/context';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
@@ -12,8 +13,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignUpClient() {
   const [loading, setLoading] = useState(false);
+  const { login } = useContextProvider();
   const navigation = useNavigation();
   const onSubmit = async () => {
+    console.log('oio');
+    if (loading) {
+      return;
+    }
     setLoading(true);
     await api
       .post('/auth/local/register', {
@@ -27,9 +33,11 @@ export default function SignUpClient() {
       .then(async response => {
         setLoading(false);
         await AsyncStorage.setItem('token', response.data.jwt);
+        login();
         navigation.navigate('clientTab');
       })
       .catch(e => {
+        console.log(e.response);
         setLoading(false);
       });
   };
