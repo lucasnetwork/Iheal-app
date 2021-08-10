@@ -10,7 +10,7 @@ import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
-  const { cart, logged } = useContextProvider();
+  const { cart, logged, DeleteItem } = useContextProvider();
   const navigate = useNavigation();
   useEffect(() => {
     loadProduct();
@@ -36,7 +36,9 @@ const Cart = () => {
                   <View style={styles.productContainer}>
                     <Product
                       buttonRemove
+                      onPressDelete={() => DeleteItem(item.id, item.quantity)}
                       product={{
+                        id: item.id,
                         name: item.name,
                         description: item.description,
                         priceFormat: item.priceFormat || '',
