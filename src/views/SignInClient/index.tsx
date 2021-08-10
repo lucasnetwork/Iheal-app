@@ -4,6 +4,7 @@ import logo from '../../assets/logo.png';
 import api from '../../config/api';
 
 import { useContextProviderAuth } from '../../services/contextAuth';
+import { useContextProvider } from '../../services/context';
 import React, { useState, useContext } from 'react';
 
 import {
@@ -22,6 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function SignInClient() {
   const { setUserData } = useContextProviderAuth();
   const navigate = useNavigation();
+  const { login } = useContextProvider();
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
@@ -44,6 +46,7 @@ export default function SignInClient() {
           user: response.data.user,
         });
         await AsyncStorage.setItem('token', response.data.jwt);
+        login();
         navigate.navigate('clientTab');
       })
       .catch(e => {

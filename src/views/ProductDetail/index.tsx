@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import { mapData } from '../../api/map-data-products';
 import api from '../../config/api';
 import { mapDataProduct } from '../../api/map-data-product';
+import { useContextProvider } from '../../services/context';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -31,9 +32,9 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState<ProductDetailProps>();
   const navigation = useNavigation();
+  const { addItem } = useContextProvider();
   const route = useRoute();
   const { id } = route.params;
-  console.log(id);
   const loadProduct = async () => {
     try {
       const response = await api.get(`/products/${id}`);
@@ -85,6 +86,19 @@ const ProductDetail = () => {
             borderRadius: 1,
             backgroundColor: '#fff',
           }}
+          onPress={() =>
+            addItem(
+              {
+                description: product?.description || '',
+                id,
+                image: product?.image || '',
+                name: product?.name || '',
+                price: product?.price || 0,
+                priceFormat: product?.priceFormat || '',
+              },
+              quantity
+            )
+          }
         >
           Adicionar ao carrinho
         </Button>
