@@ -1,6 +1,7 @@
 import Cart from '../../views/Cart';
 import Home from '../../views/Home';
 import Account from '../../views/Account';
+import Home from '../../views/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { Text } from 'react-native';

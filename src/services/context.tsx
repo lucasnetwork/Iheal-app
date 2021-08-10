@@ -29,6 +29,10 @@ interface constexProps {
     text: string;
   };
   createNotification(text: string): void;
+  logged: boolean;
+  login(): void;
+  logout(): void;
+  resetCart(): void;
 }
 
 export const ContextApp = createContext({} as constexProps);
@@ -39,11 +43,20 @@ const ContextProvider: React.FC = ({ children }) => {
     text: 'mensagem de notificação',
   });
   const [cart, setCart] = useState<cartProps>({
-    products: productsMock,
-    totalQuantity: 7,
-    total: 20580,
-    totalPriceFormat: 'R$ 20.580,00',
+    products: [],
+    totalQuantity: 0,
+    total: 0,
+    totalPriceFormat: 'R$ 0,00',
   });
+  const [logged, setLogged] = useState(false);
+
+  function login() {
+    setLogged(true);
+  }
+
+  function logout() {
+    setLogged(false);
+  }
 
   function updateItem(newProduct: product, quantity: number) {
     const newCart = { ...cart };
@@ -68,7 +81,7 @@ const ContextProvider: React.FC = ({ children }) => {
     newCart.totalPriceFormat = `R$ ${newCart.total
       .toFixed(2)
       .replace('.', ',')}`;
-
+    newCart.totalQuantity += quantity;
     setCart(newCart);
   }
 
@@ -89,6 +102,7 @@ const ContextProvider: React.FC = ({ children }) => {
     newCart.totalPriceFormat = `R$ ${newCart.total
       .toFixed(2)
       .replace('.', ',')}`;
+    newCart.totalQuantity += quantity;
     setCart(newCart);
   }
 
@@ -144,6 +158,15 @@ const ContextProvider: React.FC = ({ children }) => {
     setCart(newCart);
   }
 
+  function resetCart() {
+    setCart({
+      products: [],
+      totalQuantity: 0,
+      total: 0,
+      totalPriceFormat: 'R$ 0,00',
+    });
+  }
+
   function createNotification(text: string) {
     setShowNotification({
       show: true,
@@ -165,6 +188,10 @@ const ContextProvider: React.FC = ({ children }) => {
         DeleteItem,
         showNotification,
         createNotification,
+        logout,
+        logged,
+        login,
+        resetCart,
       }}
     >
       {children}

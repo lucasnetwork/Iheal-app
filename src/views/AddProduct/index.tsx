@@ -1,7 +1,9 @@
 import styles from './styles';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import React from 'react';
+import api from '../../config/api';
+import { useContextProvider } from '../../services/context';
+import React, { useState } from 'react';
 import {
   View,
   TextInput,
@@ -18,16 +20,68 @@ const initialValues = {
   name: '',
   price: '',
   quantity: '',
-  image: null,
+  image: '',
   description: '',
 };
 
 const AddProduct = () => {
+  const [_id, setId] = useState();
+  const { createNotification } = useContextProvider();
+  const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues,
-    onSubmit: values => {
+    onSubmit: async values => {
       // eslint-disable-next-line no-console
       console.log(values);
+      if (loading) {
+        return;
+      }
+      setLoading(true);
+      let imageUrl = '';
+
+      try {
+        // eslint-disable-next-line no-console
+        console.log({
+          name: values.name,
+          price: values.price,
+          stock: values.quantity,
+          Description: values.description,
+        });
+        const response = await api.post('/products', {
+          name: values.name,
+          price: values.price,
+          stock: values.quantity,
+          Description: values.description,
+        });
+        createNotification('Produto Cadastrado!');
+        setId(response.data.id);
+      } catch (e) {
+        createNotification('Produto não cadastrado, tente novamente');
+      }
+      try {
+        // eslint-disable-next-line no-undef
+        const formData = new FormData();
+
+        formData.append('files', {
+          uri: values.image,
+          name: 'image434324.jpg',
+          type: 'image/jpeg',
+        });
+        formData.append('refId', `${_id}`);
+        formData.append('ref', 'product');
+        formData.append('field', 'image');
+        const uploadresponse = await api.post('/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        imageUrl = uploadresponse.data[0].url;
+      } catch (e) {
+        createNotification('Imagem não enviada, tente novamente');
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
     },
   });
 

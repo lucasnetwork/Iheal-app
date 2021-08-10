@@ -9,6 +9,7 @@ import SignUpStore from '../../views/SignUpStore';
 import SignInClient from '../../views/SignInClient';
 import SignInStore from '../../views/SignInStore';
 import ConfirmPayment from '../../views/ConfirmPayment';
+import ProductDetail from '../../views/ProductDetail';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
@@ -23,6 +24,7 @@ const StackIndex = () => (
     <Screen name="SignInStore" component={SignInStore} />
     <Screen name="shoppingTabs" component={ShoppingAdministration} />
     <Screen name="clientTab" component={Tabs} />
+    <Screen name="ProductDetails" component={ProductDetail} />
     <Screen name="adress" component={AddAdress} />
     <Screen name="finishedBuy" component={FinishedBuy} />
     <Screen name="confirmPayment" component={ConfirmPayment} />
