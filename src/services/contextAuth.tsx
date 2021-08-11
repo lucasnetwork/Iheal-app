@@ -22,7 +22,6 @@ interface constexAuthProps {
       email: string;
       address: string;
     };
-    productsUser: {}[];
   };
   setUserData: React.Dispatch<
     React.SetStateAction<{
@@ -33,7 +32,6 @@ interface constexAuthProps {
         email: string;
         address: string;
       };
-      productsUser: {}[];
     }>
   >;
 }
@@ -49,7 +47,6 @@ const AuthProvider: React.FC = ({ children }) => {
       email: string;
       address: string;
     };
-    productsUser: {}[];
   }>({
     token: '',
     user: {
@@ -58,7 +55,6 @@ const AuthProvider: React.FC = ({ children }) => {
       email: '',
       address: '',
     },
-    productsUser: [{}],
   });
 
   const checkLoginToken = useCallback(async () => {
@@ -98,7 +94,6 @@ const AuthProvider: React.FC = ({ children }) => {
         email: '',
         address: '',
       },
-      productsUser: [{}],
     });
     await AsyncStorage.setItem('token', '');
     setauthenticated(false);

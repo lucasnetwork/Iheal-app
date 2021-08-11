@@ -19,20 +19,30 @@ export type productStore = {
   image: string;
 };
 export const newProducts = (productsStore = [{}] as any) => {
-  productsStore?.map(product => {
-    const { url } = product.image || { url: '' };
-    const { id, name, Description, price } = product;
-    console.log(price);
+  productsStore?.map(
+    (product: {
+      image: {
+        url: string;
+      };
+      id: string;
+      name: string;
+      Description: string;
+      price: number;
+    }) => {
+      const { url } = product.image || { url: '' };
+      const { id, name, Description, price } = product;
+      console.log(price);
 
-    return {
-      id,
-      name,
-      description: Description,
+      return {
+        id,
+        name,
+        description: Description,
 
-      price,
-      image: url,
-    };
-  });
+        price,
+        image: url,
+      };
+    }
+  );
 };
 
 const ProductsAdministration = () => {
@@ -78,8 +88,8 @@ const ProductsAdministration = () => {
         <FlatList
           style={{ flex: 1 }}
           data={productstore}
-          keyExtractor={item => `${item.id}`}
-          renderItem={({ item }) => (
+          keyExtractor={(item: any) => `${item.id}`}
+          renderItem={({ item }: any) => (
             <View style={{ marginBottom: 12, paddingHorizontal: 32 }}>
               <Product
                 product={{

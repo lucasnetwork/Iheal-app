@@ -25,7 +25,14 @@ export default function SignUpStore() {
   const [loading, setLoading] = useState(false);
   const { createNotification } = useContextProvider();
   const navigation = useNavigation();
-  const onSubmit = async values => {
+  const onSubmit = async (values: {
+    name: string;
+    email: string;
+    password: string;
+    address: string;
+    cep: string;
+    cnpj: string;
+  }) => {
     setLoading(true);
     console.log(values);
     try {

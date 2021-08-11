@@ -1,4 +1,5 @@
 import styles from './styles';
+import { useContextProviderAuth } from ';;/;;/services/contextAuth';
 import Button from '../../components/Button';
 import Product from '../../components/Product';
 import { useContextProvider } from '../../services/context';
@@ -11,6 +12,7 @@ import { FlatList } from 'react-native-gesture-handler';
 
 const ConfirmPayment = () => {
   const { cart } = useContextProvider();
+
   const navigate = useNavigation();
   return (
     <>

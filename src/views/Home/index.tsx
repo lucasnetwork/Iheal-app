@@ -30,7 +30,7 @@ const Home = () => {
     loadProduct();
   }, []);
 
-  const searchProduct = (text: any) => {
+  const searchProduct = (text: string) => {
     if (text) {
       const newData = products.filter((product: any) => {
         const itemData = product.name

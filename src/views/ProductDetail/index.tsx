@@ -34,7 +34,7 @@ const ProductDetail = () => {
   const navigation = useNavigation();
   const { addItem, cart } = useContextProvider();
   const route = useRoute();
-  const { id } = route.params;
+  const { id }: any = route.params;
   console.log(cart);
   const loadProduct = async () => {
     try {
