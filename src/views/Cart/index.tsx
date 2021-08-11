@@ -4,23 +4,16 @@ import { useContextProvider } from '../../services/context';
 import Product from '../../components/Product';
 import Button from '../../components/Button';
 import emotionCry from '../../assets/emotionCry.png';
-import { loadProduct } from '../../api/load-products';
-import { mapData } from '../../api/map-data-products';
+
 import { View, Text, FlatList, Image } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
   const { cart, logged, DeleteItem } = useContextProvider();
+  console.log('aqui');
   const navigate = useNavigation();
-  useEffect(() => {
-    loadProduct();
-  }, []);
-  const CartOrder = async () => {
-    await api.get('/orders', {}).then(response => {
-      const newOrder = mapData(response.data);
-    });
-  };
+
   return (
     <>
       <Header />

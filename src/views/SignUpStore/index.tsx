@@ -47,7 +47,8 @@ export default function SignUpStore() {
       });
       await AsyncStorage.setItem('token', response.data.jwt);
       navigation.navigate('shoppingTabs');
-    } catch {
+    } catch (error) {
+      console.log(error);
       setLoading(false);
       createNotification('Revise seu email ou senha e tente novamente');
     }

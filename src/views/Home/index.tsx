@@ -32,7 +32,7 @@ const Home = () => {
 
   const searchProduct = (text: any) => {
     if (text) {
-      const newData = products.filter(product => {
+      const newData = products.filter((product: any) => {
         const itemData = product.name
           ? product.name.toLowerCase()
           : ''.toLowerCase();
@@ -41,10 +41,6 @@ const Home = () => {
 
         return itemData.indexOf(textData) > -1;
       });
-
-      setSearchResults(newData);
-
-      setSearchText(text);
     } else {
       setSearchResults(products);
       setSearchText(text);

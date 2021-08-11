@@ -4,30 +4,52 @@ import Header from '../../components/Header';
 import ordersMock from '../Orders/ordersMock.json';
 import Order from '../../components/Order';
 import { useContextProviderAuth } from '../../services/contextAuth';
-import React, { useState, useEffect } from 'react';
+import api from '../../config/api';
+import { useContextProvider } from '../../services/context';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Account = () => {
   const { userData } = useContextProviderAuth();
+  const { cart } = useContextProvider();
   const navigate = useNavigation();
   const [orders, setOrders] = useState<
     Array<{
-      id: number;
-      total: string;
-      date: string;
-      clientName: string;
-      products: Array<{
+      id: string;
+      product: {
+        Description: string;
         name: string;
-        quantity: number;
-        price: string;
-      }>;
+        price: number;
+        image: {
+          url: string;
+        };
+      };
+      // eslint-disable-next-line camelcase
+      user_order: {
+        id: string;
+        username: string;
+        address: string;
+      };
+      total: number;
+      date: string;
     }>
   >([]);
-
+  const loadUserOrder = useCallback(async () => {
+    await api
+      .get(`/orders/store`)
+      .then(response => {
+        setOrders(response.data);
+        console.log('deucerto');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [cart]);
   useEffect(() => {
-    setOrders(ordersMock);
+    loadUserOrder();
   }, []);
+
   return (
     <>
       <Header />
@@ -52,10 +74,10 @@ const Account = () => {
         <View style={{ flex: 1, alignSelf: 'stretch' }}>
           <View style={styles.containerTitle}>
             <Text style={styles.titleShop}>
-              Olá, {userData ? userData?.user.username : 'visitante'}{' '}
+              Olá, {userData ? userData?.user.username : 'visitante'}
             </Text>
             <Text style={styles.email}>
-              {userData ? userData?.user.email : ''}{' '}
+              {userData ? userData?.user.email : ''}
             </Text>
           </View>
           <View style={{ flex: 1, alignSelf: 'stretch' }}>
@@ -69,12 +91,12 @@ const Account = () => {
               renderItem={({ item }) => (
                 <View style={styles.orderContainer}>
                   <Order
-                    clientName={item.clientName}
+                    clientName={item.user_order.username}
                     date={item.date}
-                    name={item.products[0].name}
-                    price={item.products[0].price}
-                    quant={item.products[0].quantity}
-                    total={item.total}
+                    name={item.product.name}
+                    price={`${item.product.price}`}
+                    quant={1}
+                    total={`${item.total}`}
                   />
                 </View>
               )}

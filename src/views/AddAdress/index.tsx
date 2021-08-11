@@ -4,6 +4,7 @@ import cart from '../../assets/cart.png';
 import Header from '../../components/Header';
 import maskCep from '../../utils/maskCep';
 import addressSchema from '../../validations/addressSchema';
+import { useContextProviderAuth } from '../../services/contextAuth';
 import { View, ScrollView, TextInput, Image, Text } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -20,9 +21,20 @@ const initialValues = {
   city: '',
 };
 const AddAdress = () => {
+  const { userData } = useContextProviderAuth();
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      name: '',
+      number: '',
+      street: '',
+      cep: '',
+      complement: '',
+      state: '',
+      district: '',
+      city: '',
+    },
+
     validationSchema: addressSchema,
     onSubmit(values) {
       if (loading) {

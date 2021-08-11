@@ -32,9 +32,10 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState<ProductDetailProps>();
   const navigation = useNavigation();
-  const { addItem } = useContextProvider();
+  const { addItem, cart } = useContextProvider();
   const route = useRoute();
   const { id } = route.params;
+  console.log(cart);
   const loadProduct = async () => {
     try {
       const response = await api.get(`/products/${id}`);

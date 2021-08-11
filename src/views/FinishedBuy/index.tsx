@@ -2,6 +2,8 @@ import styles from './styles';
 import Button from '../../components/Button';
 import { useContextProvider } from '../../services/context';
 import Header from '../../components/Header';
+import api from '../../config/api';
+
 import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,7 +12,35 @@ import { FlatList } from 'react-native-gesture-handler';
 
 const FinishedBuy = () => {
   const { cart, createNotification } = useContextProvider();
+
   const navigate = useNavigation();
+  const loadProductOrder = async (id: number) => {
+    await api
+      .post(`/orders`, {
+        product: { id },
+        total: cart.totalQuantity,
+      })
+      .then(response => {
+        console.log(response.data);
+        console.log('deucerto');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  // const CartOrder = async () => {
+  //   await api.get('/orders', {}).then(response => {
+  //     const newOrder = mapData(response.data);
+  //   });
+  // };
+
+  const CreateOrder = () => {
+    cart.products.map(product => {
+      const { id } = product;
+      return loadProductOrder(id);
+    });
+    createNotification('Compra realizada');
+  };
   return (
     <>
       <Header buttonBack />
@@ -70,10 +100,7 @@ const FinishedBuy = () => {
             <Text style={styles.textButton}>*Pagamento em dinheiro</Text>
           </View>
           <View style={styles.containerButton}>
-            <Button
-              small
-              onPress={() => createNotification('Compra realizada')}
-            >
+            <Button small onPress={() => CreateOrder()}>
               Confirmar
             </Button>
           </View>

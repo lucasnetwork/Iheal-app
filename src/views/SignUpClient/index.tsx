@@ -37,6 +37,7 @@ export default function SignUpClient() {
         setUserData({
           token: response.data.jwt,
           user: response.data.user,
+          productsUser: response.data.products_user,
         });
         await AsyncStorage.setItem('token', response.data.jwt);
         login();

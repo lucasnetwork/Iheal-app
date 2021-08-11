@@ -25,6 +25,7 @@ const StackIndex = () => (
     <Screen name="shoppingTabs" component={ShoppingAdministration} />
     <Screen name="clientTab" component={Tabs} />
     <Screen name="ProductDetails" component={ProductDetail} />
+
     <Screen name="adress" component={AddAdress} />
     <Screen name="finishedBuy" component={FinishedBuy} />
     <Screen name="confirmPayment" component={ConfirmPayment} />

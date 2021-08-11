@@ -25,7 +25,8 @@ const initialValues = {
 };
 
 const AddProduct = () => {
-  const [_id, setId] = useState();
+  // eslint-disable-next-line no-underscore-dangle
+  let _id: string | null = null;
   const { createNotification } = useContextProvider();
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
@@ -52,14 +53,14 @@ const AddProduct = () => {
           Description: values.description,
         });
         createNotification('Produto Cadastrado!');
-        setId(response.data.id);
+        _id = response.data.id;
       } catch (e) {
         createNotification('Produto não cadastrado, tente novamente');
       }
       try {
         // eslint-disable-next-line no-undef
         const formData = new FormData();
-
+        console.log('aqui');
         formData.append('files', {
           uri: values.image,
           name: 'image434324.jpg',
@@ -68,11 +69,7 @@ const AddProduct = () => {
         formData.append('refId', `${_id}`);
         formData.append('ref', 'product');
         formData.append('field', 'image');
-        const uploadresponse = await api.post('/upload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        const uploadresponse = await api.post('/upload', formData);
         imageUrl = uploadresponse.data[0].url;
       } catch (e) {
         createNotification('Imagem não enviada, tente novamente');
