@@ -51,7 +51,7 @@ const Orders = () => {
   useEffect(() => {
     loadUserOrder();
   }, []);
-  console.log(ordersOwner);
+  console.log(ordersOwner[0].status);
   console.log('order pertencente lojas');
   return (
     <>
@@ -79,7 +79,7 @@ const Orders = () => {
                     />
                     <TouchableOpacity
                       onPress={() =>
-                        navigate.navigate('confirmPayment', item?.id as any)
+                        navigate.navigate('confirmPayment', { id: item.id })
                       }
                       style={styles.buttonOrder}
                     >

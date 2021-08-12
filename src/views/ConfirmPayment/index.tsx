@@ -13,7 +13,7 @@ import { FlatList } from 'react-native-gesture-handler';
 const ConfirmPayment = () => {
   const { cart } = useContextProvider();
   const route = useRoute();
-  const { id }: any = route.params;
+  const { id } = route.params;
 
   const navigate = useNavigation();
   return (

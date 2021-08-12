@@ -92,6 +92,7 @@ const ProductsAdministration = () => {
           renderItem={({ item }: any) => (
             <View style={{ marginBottom: 12, paddingHorizontal: 32 }}>
               <Product
+                disabled
                 product={{
                   description: item.description,
                   image: item.image,
