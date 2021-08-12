@@ -1,11 +1,12 @@
 import styles from './styles';
-import { useContextProviderAuth } from ';;/;;/services/contextAuth';
+import { useContextProviderAuth } from '../../services/contextAuth';
 import Button from '../../components/Button';
 import Product from '../../components/Product';
 import { useContextProvider } from '../../services/context';
 import Header from '../../components/Header';
+import api from '../../config/api';
 import { View, Text, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -14,8 +15,35 @@ const ConfirmPayment = () => {
   const { cart } = useContextProvider();
   const route = useRoute();
   const { id } = route.params;
-
+  const [Order, setOrder] = useState([]);
   const navigate = useNavigation();
+  const loadUserOrder = useCallback(async () => {
+    await api
+      .get(`/orders/${id}`)
+      .then(response => {
+        setOrder(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [id]);
+  const payment = useCallback(async () => {
+    await api
+      .put(`/orders/${id}`, {
+        status: 'paid',
+      })
+      .then(response => {
+        setOrder(response.data);
+        console.log('deu certo o pagamentto');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [Order]);
+  useEffect(() => {
+    loadUserOrder();
+  }, []);
+  console.log(Order);
   return (
     <>
       <Header buttonBack showCart={false} title="Confirmar pagamento" />
@@ -23,11 +51,13 @@ const ConfirmPayment = () => {
         <View style={styles.containerInfo}>
           <View style={styles.addressContainer}>
             <View>
-              <Text>Nome do usuário</Text>
-              <Text style={styles.address}>Rua Nome da Rua, n° 000</Text>
-              <Text style={styles.address}>Nome do Bairro,</Text>
+              <Text>{Order?.user_order.username}</Text>
+              <Text style={styles.address}>
+                Rua {Order?.user_order.address}, n° 000
+              </Text>
+
               <Text style={styles.address}>Imperatriz - MA</Text>
-              <Text style={styles.address}>00000-000</Text>
+              <Text style={styles.address}>{Order?.user_order.cep}</Text>
             </View>
             <TouchableOpacity onPress={() => navigate.navigate('adress')}>
               <MaterialCommunityIcons
@@ -82,7 +112,9 @@ const ConfirmPayment = () => {
             <Text style={styles.textButton}>*Pagamento em dinheiro</Text>
           </View>
           <View style={styles.containerButton}>
-            <Button small>Confirmar Pagamento</Button>
+            <Button small onPress={payment}>
+              Confirmar Pagamento
+            </Button>
           </View>
         </View>
       </View>

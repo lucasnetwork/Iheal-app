@@ -38,7 +38,7 @@ const Orders = () => {
   >([]);
 
   const navigate = useNavigation();
-  const loadUserOrder = useCallback(async () => {
+  const loadUserOrders = useCallback(async () => {
     await api
       .get(`/orders/store`)
       .then(response => {
@@ -49,10 +49,9 @@ const Orders = () => {
       });
   }, [cart]);
   useEffect(() => {
-    loadUserOrder();
+    loadUserOrders();
   }, []);
-  console.log(ordersOwner[0].status);
-  console.log('order pertencente lojas');
+
   return (
     <>
       <Header showCart={false} />
