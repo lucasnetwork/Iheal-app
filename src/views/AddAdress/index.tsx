@@ -41,7 +41,7 @@ const AddAdress = () => {
         return;
       }
       setLoading(true);
-      console.log(values);
+
       setLoading(false);
       navigate.navigate('finishedBuy');
     },

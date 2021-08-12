@@ -15,6 +15,7 @@ const Home = () => {
   const [products, setProducts] = useState([{}]);
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
+
   const loadProduct = async () => {
     await api
       .get(`/products`)

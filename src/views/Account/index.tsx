@@ -16,7 +16,7 @@ const Account = () => {
   const navigate = useNavigation();
   const [orders, setOrders] = useState<
     Array<{
-      id: string;
+      id?: string | number | null;
       product: {
         Description: string;
         name: string;
@@ -32,6 +32,7 @@ const Account = () => {
         address: string;
       };
       total: number;
+      quantity: number;
       date: string;
     }>
   >([]);
@@ -40,7 +41,6 @@ const Account = () => {
       .get(`/orders/store`)
       .then(response => {
         setOrders(response.data);
-        console.log('deucerto');
       })
       .catch(error => {
         console.log(error);
@@ -49,7 +49,8 @@ const Account = () => {
   useEffect(() => {
     loadUserOrder();
   }, []);
-
+  console.log(orders);
+  console.log('pedido do cliente');
   return (
     <>
       <Header />
@@ -87,7 +88,7 @@ const Account = () => {
                 paddingHorizontal: 39,
               }}
               data={orders}
-              keyExtractor={item => `${item.id}`}
+              keyExtractor={item => `${item?.id}`}
               renderItem={({ item }) => (
                 <View style={styles.orderContainer}>
                   <Order
@@ -95,7 +96,7 @@ const Account = () => {
                     date={item.date}
                     name={item.product.name}
                     price={`${item.product.price}`}
-                    quant={1}
+                    quant={item.quantity}
                     total={`${item.total}`}
                   />
                 </View>

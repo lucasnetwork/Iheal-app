@@ -7,11 +7,13 @@ import Header from '../../components/Header';
 import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 
 const ConfirmPayment = () => {
   const { cart } = useContextProvider();
+  const route = useRoute();
+  const { id }: any = route.params;
 
   const navigate = useNavigation();
   return (

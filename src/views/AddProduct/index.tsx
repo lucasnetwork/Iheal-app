@@ -32,7 +32,6 @@ const AddProduct = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: async values => {
-      console.log(values);
       if (loading) {
         return;
       }
@@ -40,12 +39,6 @@ const AddProduct = () => {
       let imageUrl = '';
 
       try {
-        console.log({
-          name: values.name,
-          price: values.price,
-          stock: values.quantity,
-          Description: values.description,
-        });
         const response = await api.post('/products', {
           name: values.name,
           price: values.price,
@@ -60,7 +53,7 @@ const AddProduct = () => {
       try {
         // eslint-disable-next-line no-undef
         const formData = new FormData();
-        console.log('aqui');
+
         formData.append('files', {
           uri: values.image,
           name: 'image434324.jpg',
@@ -95,8 +88,6 @@ const AddProduct = () => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.cancelled) {
       formik.setFieldValue('image', result.uri);

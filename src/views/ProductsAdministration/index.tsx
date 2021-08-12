@@ -31,7 +31,6 @@ export const newProducts = (productsStore = [{}] as any) => {
     }) => {
       const { url } = product.image || { url: '' };
       const { id, name, Description, price } = product;
-      console.log(price);
 
       return {
         id,
@@ -67,7 +66,8 @@ const ProductsAdministration = () => {
   };
   useEffect(() => {
     loadProduct();
-  }, [productstore]);
+  }, []);
+
   return (
     <>
       <Header showCart={false} />

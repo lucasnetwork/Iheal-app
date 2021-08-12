@@ -47,7 +47,7 @@ export default function SignUpStore() {
       });
 
       setLoading(false);
-      console.log(response);
+
       setUserData({
         token: response.data.jwt,
         user: response.data.user,

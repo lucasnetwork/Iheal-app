@@ -1,71 +1,100 @@
 import styles from './styles';
+import Button from '../../components/Button';
+import Header from '../../components/Header';
 import ordersMock from '../Orders/ordersMock.json';
 import Order from '../../components/Order';
-import Header from '../../components/Header';
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { useContextProviderAuth } from '../../services/contextAuth';
+import api from '../../config/api';
+import { useContextProvider } from '../../services/context';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const AccountAdm = () => {
+const Account = () => {
+  const { userData } = useContextProviderAuth();
+  const { cart } = useContextProvider();
+  const navigate = useNavigation();
   const [orders, setOrders] = useState<
     Array<{
-      id: number;
-      total: string;
-      date: string;
-      clientName: string;
-      products: Array<{
+      id: string;
+      product: {
+        Description: string;
         name: string;
-        quantity: number;
-        price: string;
-      }>;
+        price: number;
+        image: {
+          url: string;
+        };
+      };
+      // eslint-disable-next-line camelcase
+      user_order: {
+        id: string;
+        username: string;
+        address: string;
+      };
+      total: number;
+      date: string;
     }>
   >([]);
-  const navigate = useNavigation();
-
+  const loadUserOrder = useCallback(async () => {
+    await api
+      .get(`/orders/store`)
+      .then(response => {
+        setOrders(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [cart]);
   useEffect(() => {
-    setOrders(ordersMock);
+    loadUserOrder();
   }, []);
-
+  console.log(orders);
   return (
     <>
-      <Header showCart={false} />
+      <Header />
       <View style={styles.container}>
-        <View style={styles.containerTitle}>
-          <Text style={styles.titleShop}>Olá, Drogaria Melo </Text>
-          <Text style={styles.email}>drogariameno@gmail.com </Text>
-        </View>
-        <View style={styles.container}>
-          <Text style={styles.historyTitle}>Histórico de vendas</Text>
-          <FlatList
-            contentContainerStyle={{
-              paddingHorizontal: 39,
-            }}
-            data={orders}
-            keyExtractor={item => `${item.id}`}
-            renderItem={({ item }) => (
-              <View style={styles.orderContainer}>
-                <Order
-                  clientName={item.clientName}
-                  date={item.date}
-                  name={item.products[0].name}
-                  price={item.products[0].price}
-                  quant={item.products[0].quantity}
-                  total={item.total}
-                />
-              </View>
-            )}
-          />
-          <View style={styles.loggoutContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                navigate.navigate('signIn');
+        <View style={{ flex: 1, alignSelf: 'stretch' }}>
+          <View style={styles.containerTitle}>
+            <Text style={styles.titleShop}>
+              Olá, {userData ? userData?.user.username : 'visitante'}
+            </Text>
+            <Text style={styles.email}>
+              {userData ? userData?.user.email : ''}
+            </Text>
+          </View>
+          <View style={{ flex: 1, alignSelf: 'stretch' }}>
+            <Text style={styles.historyTitle}>Histórico de vendas</Text>
+            <FlatList
+              contentContainerStyle={{
+                paddingHorizontal: 39,
               }}
-            >
-              <Text style={styles.loggoutText}>Sair</Text>
-            </TouchableOpacity>
-            <View style={styles.appInfo}>
-              <Text style={styles.appInfoText}>IHEAL</Text>
-              <Text style={styles.appInfoText}>VERSÃO 1.0</Text>
+              data={orders}
+              keyExtractor={item => `${item?.id}`}
+              renderItem={({ item }) => (
+                <View style={styles.orderContainer}>
+                  <Order
+                    clientName={item?.user_order.username}
+                    date={item?.date}
+                    name={item?.product.name}
+                    price={`${item?.product.price}`}
+                    quant={1}
+                    total={`${item?.total}`}
+                  />
+                </View>
+              )}
+            />
+            <View style={styles.loggoutContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigate.navigate('signIn');
+                }}
+              >
+                <Text style={styles.loggoutText}>Sair</Text>
+              </TouchableOpacity>
+              <View style={styles.appInfo}>
+                <Text style={styles.appInfoText}>IHEAL</Text>
+                <Text style={styles.appInfoText}>VERSÃO 1.0</Text>
+              </View>
             </View>
           </View>
         </View>
@@ -74,4 +103,4 @@ const AccountAdm = () => {
   );
 };
 
-export default AccountAdm;
+export default Account;

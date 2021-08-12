@@ -18,11 +18,12 @@ const FinishedBuy = () => {
     await api
       .post(`/orders`, {
         product: { id },
-        total: cart.totalQuantity,
+        total: cart.total,
+        quantity: cart.totalQuantity,
+        status: 'unpaid',
       })
       .then(response => {
-        console.log(response.data);
-        console.log('deucerto');
+        console.log('deu certo finalizou  o pagamento');
       })
       .catch(error => {
         console.log(error);

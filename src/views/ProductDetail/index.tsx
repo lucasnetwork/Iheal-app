@@ -35,7 +35,7 @@ const ProductDetail = () => {
   const { addItem, cart } = useContextProvider();
   const route = useRoute();
   const { id }: any = route.params;
-  console.log(cart);
+
   const loadProduct = async () => {
     try {
       const response = await api.get(`/products/${id}`);
@@ -52,6 +52,7 @@ const ProductDetail = () => {
     }
     loadProduct();
   }, [id]);
+
   return (
     <>
       <Header buttonBack title="product" />

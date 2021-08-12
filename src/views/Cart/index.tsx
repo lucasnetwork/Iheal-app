@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
   const { cart, logged, DeleteItem } = useContextProvider();
-  console.log('aqui');
+
   const navigate = useNavigation();
 
   return (

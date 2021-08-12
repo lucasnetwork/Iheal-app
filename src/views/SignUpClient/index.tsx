@@ -18,7 +18,6 @@ export default function SignUpClient() {
   const { login } = useContextProvider();
   const navigation = useNavigation();
   const onSubmit = async () => {
-    console.log('oio');
     if (loading) {
       return;
     }
@@ -32,6 +31,7 @@ export default function SignUpClient() {
         cep: formik.values.cep,
         cpf: formik.values.cpf,
       })
+
       .then(async response => {
         setLoading(false);
         setUserData({
