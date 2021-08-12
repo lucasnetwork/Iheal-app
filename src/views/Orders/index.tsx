@@ -79,7 +79,7 @@ const Orders = () => {
                     />
                     <TouchableOpacity
                       onPress={() =>
-                        navigate.navigate('confirmPayment', item?.id as any)
+                        navigate.navigate('confirmPayment', { id: item?.id })
                       }
                       style={styles.buttonOrder}
                     >
