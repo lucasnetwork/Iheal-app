@@ -1,5 +1,5 @@
 import styles from './styles';
-import { useContextProviderAuth } from '../../services/contextAuth';
+
 import Button from '../../components/Button';
 import Product from '../../components/Product';
 import { useContextProvider } from '../../services/context';
@@ -9,41 +9,53 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { FlatList } from 'react-native-gesture-handler';
 
 const ConfirmPayment = () => {
-  const { cart } = useContextProvider();
+  const { cart, createNotification } = useContextProvider();
   const route = useRoute();
-  const { id } = route.params;
-  const [Order, setOrder] = useState([]);
+  const { id }: any = route.params;
+  const [Order, setOrder] = useState({
+    user_order: {
+      username: '',
+      address: '',
+      numberHouse: '',
+      cep: '',
+    },
+    product: {
+      name: '',
+      Description: '',
+      price: 0,
+    },
+    total: 0,
+    quantity: 0,
+    status: '',
+  });
   const navigate = useNavigation();
   const loadUserOrder = useCallback(async () => {
-    await api
-      .get(`/orders/${id}`)
-      .then(response => {
-        setOrder(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    try {
+      const response = await api.get(`/orders/${id}`);
+
+      setOrder(response.data);
+    } catch (error) {
+      createNotification('Ocorreu um erro tente novamente mais tarde');
+    }
   }, [id]);
-  const payment = useCallback(async () => {
-    await api
-      .put(`/orders/${id}`, {
+  const confirmPaymentOfOrder = async () => {
+    try {
+      await api.put(`/orders/${id}`, {
         status: 'paid',
-      })
-      .then(response => {
-        setOrder(response.data);
-        console.log('deu certo o pagamentto');
-      })
-      .catch(error => {
-        console.log(error);
       });
-  }, [Order]);
+      createNotification('Pagamento do pedido confirmado');
+    } catch (error) {
+      createNotification(
+        'Não foi possivel confirmar o pedido, tente Novamente'
+      );
+    }
+  };
   useEffect(() => {
     loadUserOrder();
   }, []);
-  console.log(Order);
+
   return (
     <>
       <Header buttonBack showCart={false} title="Confirmar pagamento" />
@@ -51,13 +63,14 @@ const ConfirmPayment = () => {
         <View style={styles.containerInfo}>
           <View style={styles.addressContainer}>
             <View>
-              <Text>{Order?.user_order.username}</Text>
+              <Text>{Order?.user_order?.username}</Text>
               <Text style={styles.address}>
-                Rua {Order?.user_order.address}, n° 000
+                Rua {Order?.user_order?.address}, n°{' '}
+                {Order?.user_order?.numberHouse}
               </Text>
 
               <Text style={styles.address}>Imperatriz - MA</Text>
-              <Text style={styles.address}>{Order?.user_order.cep}</Text>
+              <Text style={styles.address}>{Order?.user_order?.cep}</Text>
             </View>
             <TouchableOpacity onPress={() => navigate.navigate('adress')}>
               <MaterialCommunityIcons
@@ -69,7 +82,7 @@ const ConfirmPayment = () => {
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ marginTop: 9, marginHorizontal: 51 }}>
-              Resumo da compra({cart.totalQuantity})
+              Resumo da compra({Order?.quantity})
             </Text>
             <View
               style={{
@@ -81,25 +94,14 @@ const ConfirmPayment = () => {
               }}
             />
             <View style={styles.containerProducts}>
-              <FlatList
-                contentContainerStyle={{
-                  paddingHorizontal: 51,
+              <Product
+                buttonRemove
+                product={{
+                  name: Order?.product?.name,
+                  description: Order?.product?.Description,
+                  priceFormat: `R$ ${Order?.product?.price},00`,
+                  image: Order?.product?.image?.url,
                 }}
-                keyExtractor={item => `${item.id}`}
-                data={cart.products}
-                renderItem={({ item }) => (
-                  <View style={styles.productContainer}>
-                    <Product
-                      buttonRemove
-                      product={{
-                        name: item.name,
-                        description: item.description,
-                        priceFormat: item.priceFormat || '',
-                        image: item.image,
-                      }}
-                    />
-                  </View>
-                )}
               />
             </View>
           </View>
@@ -107,12 +109,12 @@ const ConfirmPayment = () => {
         <View style={styles.containerButtons}>
           <View>
             <Text style={{ ...styles.textButton, ...styles.textPrice }}>
-              Total: {cart.totalPriceFormat}
+              Total: {`R$${Order?.total},00`}
             </Text>
             <Text style={styles.textButton}>*Pagamento em dinheiro</Text>
           </View>
           <View style={styles.containerButton}>
-            <Button small onPress={payment}>
+            <Button small onPress={confirmPaymentOfOrder}>
               Confirmar Pagamento
             </Button>
           </View>

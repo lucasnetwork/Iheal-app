@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import api from '../../config/api';
 import { mapData } from '../../api/map-data-products';
 import { useContextProviderAuth } from '../../services/contextAuth';
+import { useContextProvider } from '../../services/context';
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { AntDesign, Feather } from '@expo/vector-icons';
@@ -12,20 +13,20 @@ import { FlatList, TextInput } from 'react-native-gesture-handler';
 
 const Home = () => {
   const { userData } = useContextProviderAuth();
+  const { cart, createNotification } = useContextProvider();
   const [products, setProducts] = useState([{}]);
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([{}]);
 
   const loadProduct = async () => {
-    await api
-      .get(`/products`)
-      .then(response => {
-        const newResponse = mapData(response.data);
-        setProducts(newResponse);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    try {
+      const response = await api.get(`/products`);
+
+      const newResponse = mapData(response.data);
+      setProducts(newResponse);
+    } catch (error) {
+      createNotification('ocorreu um erro');
+    }
   };
   useEffect(() => {
     loadProduct();

@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Account = () => {
   const { userData } = useContextProviderAuth();
-  const { cart } = useContextProvider();
+  const { cart, createNotification } = useContextProvider();
   const navigate = useNavigation();
   const [orders, setOrders] = useState<
     Array<{
@@ -36,19 +36,18 @@ const Account = () => {
     }>
   >([]);
   const loadUserOrder = useCallback(async () => {
-    await api
-      .get(`/orders/store`)
-      .then(response => {
-        setOrders(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    try {
+      const response = await api.get(`/orders/store`);
+
+      setOrders(response.data);
+    } catch (error) {
+      createNotification('Ocorreu um erro ao carregar');
+    }
   }, [cart]);
   useEffect(() => {
     loadUserOrder();
   }, []);
-  console.log(orders);
+
   return (
     <>
       <Header />

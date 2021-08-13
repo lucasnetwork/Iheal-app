@@ -36,7 +36,6 @@ const Product: React.FC<ProductProps> = ({
     navigation.navigate('ProductDetails', { id: product.id });
   };
 
-  console.log(product);
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} {...props}>
       <Image

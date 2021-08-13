@@ -32,7 +32,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState<ProductDetailProps>();
   const navigation = useNavigation();
-  const { addItem, cart } = useContextProvider();
+  const { addItem, cart, createNotification } = useContextProvider();
   const route = useRoute();
   const { id }: any = route.params;
 
@@ -43,7 +43,7 @@ const ProductDetail = () => {
 
       setProduct(newResult);
     } catch (error) {
-      console.log(error);
+      createNotification('Ocorreu um erro');
     }
   };
   useEffect(() => {

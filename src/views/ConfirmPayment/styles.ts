@@ -18,10 +18,12 @@ export default StyleSheet.create({
     flex: 1,
     marginTop: 9,
     paddingTop: 12,
+    marginHorizontal: 23,
   },
   containerProduct: {
     flexDirection: 'row',
     marginTop: 12,
+
     justifyContent: 'space-between',
   },
   productContainer: {

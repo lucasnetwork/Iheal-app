@@ -34,7 +34,7 @@ export default function SignUpStore() {
     cnpj: string;
   }) => {
     setLoading(true);
-    console.log(values);
+
     try {
       const response = await api.post('/auth/local/register', {
         username: formik.values.name,
@@ -55,7 +55,6 @@ export default function SignUpStore() {
       await AsyncStorage.setItem('token', response.data.jwt);
       navigation.navigate('shoppingTabs');
     } catch (error) {
-      console.log(error);
       setLoading(false);
       createNotification('Revise seu email ou senha e tente novamente');
     }

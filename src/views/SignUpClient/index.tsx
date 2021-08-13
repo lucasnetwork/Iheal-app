@@ -4,6 +4,7 @@ import logo from '../../assets/logo.png';
 import api from '../../config/api';
 import { useContextProviderAuth } from '../../services/contextAuth';
 import { useContextProvider } from '../../services/context';
+import maskCep from '../../utils/maskCep';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
@@ -15,13 +16,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function SignUpClient() {
   const { setUserData } = useContextProviderAuth();
   const [loading, setLoading] = useState(false);
-  const { login } = useContextProvider();
+
+  const { login, createNotification } = useContextProvider();
   const navigation = useNavigation();
   const onSubmit = async () => {
     if (loading) {
       return;
     }
     setLoading(true);
+
     await api
       .post('/auth/local/register', {
         username: formik.values.name,
@@ -43,7 +46,7 @@ export default function SignUpClient() {
         navigation.navigate('clientTab');
       })
       .catch(e => {
-        console.log(e.response);
+        createNotification(`${e.response}`);
         setLoading(false);
       });
   };
@@ -115,7 +118,11 @@ export default function SignUpClient() {
           <TextInput
             style={styles.input}
             placeholder="CEP"
-            onChangeText={formik.handleChange('cep')}
+            onChangeText={e =>
+              maskCep(e, text => {
+                formik.setFieldValue('cep', text);
+              })
+            }
             value={formik.values.cep}
           />
           <TextInputMask

@@ -45,24 +45,24 @@ export const newProducts = (productsStore = [{}] as any) => {
 };
 
 const ProductsAdministration = () => {
-  const { cart } = useContextProvider();
+  const { cart, createNotification } = useContextProvider();
   const [productstore, setproductstore] = useState([{}]);
+
   const navigate = useNavigation();
   const { userData } = useContextProviderAuth();
   const loadProduct = async () => {
-    await api
-      .get(`/products`, {
+    try {
+      const response = await api.get(`/products`, {
         headers: {
           Authorization: `Bearer ${userData.token}`,
         },
-      })
-      .then(response => {
-        const newResponse = mapData(response.data);
-        setproductstore(newResponse);
-      })
-      .catch(error => {
-        console.log(error);
       });
+
+      const newResponse = mapData(response.data);
+      setproductstore(newResponse);
+    } catch (error) {
+      createNotification('Ocorreu um erro');
+    }
   };
   useEffect(() => {
     loadProduct();

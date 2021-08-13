@@ -5,10 +5,12 @@ import Header from '../../components/Header';
 import maskCep from '../../utils/maskCep';
 import addressSchema from '../../validations/addressSchema';
 import { useContextProviderAuth } from '../../services/contextAuth';
+import api from '../../config/api';
+import { useContextProvider } from '../../services/context';
 import { View, ScrollView, TextInput, Image, Text } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useFormik } from 'formik';
+import { useFormik, validateYupSchema } from 'formik';
 
 const initialValues = {
   name: '',
@@ -21,14 +23,45 @@ const initialValues = {
   city: '',
 };
 const AddAdress = () => {
-  const { userData } = useContextProviderAuth();
+  const { userData, setUserData } = useContextProviderAuth();
   const [loading, setLoading] = useState(false);
+  const { createNotification } = useContextProvider();
+  console.log(userData.user);
+  const payment = async (value: {
+    name: string;
+    number: string;
+    street: string;
+    cep: string;
+    complement: string;
+    state: string;
+    district: string;
+    city: string;
+  }) => {
+    try {
+      const res = await api.put(`/users/${userData.user.id}`, {
+        numberHouse: value.number,
+        uf: value.state,
+        complement: value.complement,
+        district: value.district,
+        cep: value.cep,
+      });
+
+      setUserData({
+        ...userData,
+        user: res.data,
+      });
+      setLoading(false);
+    } catch (err) {
+      createNotification('Ocorreu um erro ao carregar');
+      setLoading(false);
+    }
+  };
   const formik = useFormik({
     initialValues: {
-      name: '',
+      name: userData.user.username || '',
       number: '',
-      street: '',
-      cep: '',
+      street: userData.user.address || '',
+      cep: userData.user.cep || '',
       complement: '',
       state: '',
       district: '',
@@ -36,7 +69,9 @@ const AddAdress = () => {
     },
 
     validationSchema: addressSchema,
+
     onSubmit(values) {
+      payment(values);
       if (loading) {
         return;
       }
@@ -60,7 +95,9 @@ const AddAdress = () => {
             style={styles.input}
             placeholder="Nome Completo"
             value={formik.values.name}
-            onChangeText={e => formik.setFieldValue('name', e)}
+            onChangeText={e =>
+              formik.setFieldValue('name', userData.user.username || e)
+            }
           />
           <TextInput
             style={styles.input}
@@ -68,7 +105,7 @@ const AddAdress = () => {
             value={formik.values.cep}
             onChangeText={e =>
               maskCep(e, text => {
-                formik.setFieldValue('cep', text);
+                formik.setFieldValue('cep', userData.user.cep || text);
               })
             }
           />
@@ -76,7 +113,9 @@ const AddAdress = () => {
             style={styles.input}
             placeholder="Rua"
             value={formik.values.street}
-            onChangeText={e => formik.setFieldValue('street', e)}
+            onChangeText={e =>
+              formik.setFieldValue('street', userData.user.address || e)
+            }
           />
           <View style={styles.row}>
             <TextInput

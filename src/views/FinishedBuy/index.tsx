@@ -4,6 +4,7 @@ import { useContextProvider } from '../../services/context';
 import Header from '../../components/Header';
 import api from '../../config/api';
 
+import { useContextProviderAuth } from '../../services/contextAuth';
 import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -12,28 +13,22 @@ import { FlatList } from 'react-native-gesture-handler';
 
 const FinishedBuy = () => {
   const { cart, createNotification } = useContextProvider();
-
+  const { userData } = useContextProviderAuth();
   const navigate = useNavigation();
   const loadProductOrder = async (id: number) => {
-    await api
-      .post(`/orders`, {
+    try {
+      const response = await api.post(`/orders`, {
         product: { id },
         total: cart.total,
         quantity: cart.totalQuantity,
         status: 'unpaid',
-      })
-      .then(response => {
-        console.log('deu certo finalizou  o pagamento');
-      })
-      .catch(error => {
-        console.log(error);
       });
+
+      createNotification('Pagamento finalizado "_"');
+    } catch (error) {
+      createNotification('Aconteu algo inesperado');
+    }
   };
-  // const CartOrder = async () => {
-  //   await api.get('/orders', {}).then(response => {
-  //     const newOrder = mapData(response.data);
-  //   });
-  // };
 
   const CreateOrder = () => {
     cart.products.map(product => {
@@ -49,11 +44,15 @@ const FinishedBuy = () => {
         <View style={styles.containerInfo}>
           <View style={styles.addressContainer}>
             <View>
-              <Text>Nome do usuário</Text>
-              <Text style={styles.address}>Rua Nome da Rua, n° 000</Text>
-              <Text style={styles.address}>Nome do Bairro,</Text>
-              <Text style={styles.address}>Imperatriz - MA</Text>
-              <Text style={styles.address}>00000-000</Text>
+              <Text>{userData.user.username}</Text>
+              <Text style={styles.address}>
+                Rua {userData.user.address}, n° {userData.user.numberHouse}
+              </Text>
+              <Text style={styles.address}>
+                {userData.user.district}-{userData.user.uf}
+              </Text>
+              {/* <Text style={styles.address}>Imperatriz - MA</Text> */}
+              <Text style={styles.address}>{userData.user.cep}</Text>
             </View>
             <TouchableOpacity onPress={() => navigate.navigate('adress')}>
               <MaterialCommunityIcons

@@ -21,6 +21,11 @@ interface constexAuthProps {
       username: string;
       email: string;
       address: string;
+      cep: string;
+      numberHouse: string;
+      complement: string;
+      district: string;
+      uf: string;
     };
   };
   setUserData: React.Dispatch<
@@ -31,6 +36,11 @@ interface constexAuthProps {
         username: string;
         email: string;
         address: string;
+        cep: string;
+        numberHouse: string;
+        complement: string;
+        district: string;
+        uf: string;
       };
     }>
   >;
@@ -46,6 +56,11 @@ const AuthProvider: React.FC = ({ children }) => {
       username: string;
       email: string;
       address: string;
+      cep: string;
+      numberHouse: string;
+      complement: string;
+      district: string;
+      uf: string;
     };
   }>({
     token: '',
@@ -54,6 +69,11 @@ const AuthProvider: React.FC = ({ children }) => {
       username: '',
       email: '',
       address: '',
+      cep: '',
+      numberHouse: '',
+      complement: '',
+      district: '',
+      uf: '',
     },
   });
 
@@ -93,6 +113,11 @@ const AuthProvider: React.FC = ({ children }) => {
         username: '',
         email: '',
         address: '',
+        cep: '',
+        numberHouse: '',
+        complement: '',
+        district: '',
+        uf: '',
       },
     });
     await AsyncStorage.setItem('token', '');

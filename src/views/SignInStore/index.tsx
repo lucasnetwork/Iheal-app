@@ -3,6 +3,7 @@ import BackScreen from '../../components/BackScreen';
 import logo from '../../assets/logo.png';
 import api from '../../config/api';
 import { useContextProviderAuth } from '../../services/contextAuth';
+import { useContextProvider } from '../../services/context';
 import React, { useState } from 'react';
 
 import {
@@ -22,34 +23,33 @@ export default function SignInStore() {
   const { setUserData } = useContextProviderAuth();
   const navigate = useNavigation();
   const [loading, setLoading] = useState(false);
-
+  const { login, createNotification } = useContextProvider();
   const onSubmit = async () => {
     setLoading(true);
-    await api
-      .post('/auth/local', {
+    try {
+      const response = await api.post('/auth/local', {
         identifier: formik.values.email,
         password: formik.values.password,
-      })
-      .then(async response => {
-        setLoading(false);
-        if (response.data.IsStore === false) {
-          Alert.alert(
-            'Sua conta não possui autorização para fazer login como loja.'
-          );
-        }
-        setUserData({
-          token: response.data.jwt,
-          user: response.data.user,
-        });
-        await AsyncStorage.setItem('token', response.data.jwt);
-        navigate.navigate('shoppingTabs');
-      })
-      .catch(e => {
-        setLoading(false);
-        if (e.response.status === 400) {
-          Alert.alert('Algo deu errado revise seu email e senha');
-        }
       });
+
+      setLoading(false);
+      if (response.data.IsStore === false) {
+        createNotification(
+          'Sua conta não possui autorização para fazer login como loja.'
+        );
+      }
+      setUserData({
+        token: response.data.jwt,
+        user: response.data.user,
+      });
+      await AsyncStorage.setItem('token', response.data.jwt);
+      navigate.navigate('shoppingTabs');
+    } catch (e) {
+      setLoading(false);
+      if (e.response.status === 400) {
+        createNotification('Algo deu errado revise seu email e senha');
+      }
+    }
   };
 
   const formik = useFormik({

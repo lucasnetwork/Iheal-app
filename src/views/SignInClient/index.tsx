@@ -23,38 +23,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function SignInClient() {
   const { setUserData } = useContextProviderAuth();
   const navigate = useNavigation();
-  const { login } = useContextProvider();
+
+  const { login, createNotification } = useContextProvider();
+
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
     setLoading(true);
-    await api
-      .post('/auth/local', {
+    try {
+      const response = await api.post('/auth/local', {
         identifier: formik.values.email,
         password: formik.values.password,
-      })
-      .then(async response => {
-        setLoading(false);
-        if (response.data.IsStore === true) {
-          Alert.alert(
-            'Sua conta não possui autorização para fazer login como cliente.'
-          );
-        }
-
-        setUserData({
-          token: response.data.jwt,
-          user: response.data.user,
-        });
-        await AsyncStorage.setItem('token', response.data.jwt);
-        login();
-        navigate.navigate('clientTab');
-      })
-      .catch(e => {
-        setLoading(false);
-        if (e.response.status === 400) {
-          Alert.alert('Algo deu errado revise seu email e senha');
-        }
       });
+
+      setLoading(false);
+      if (response.data.IsStore === true) {
+        createNotification(
+          'Sua conta não possui autorização para fazer login como cliente.'
+        );
+      }
+
+      setUserData({
+        token: response.data.jwt,
+        user: response.data.user,
+      });
+      await AsyncStorage.setItem('token', response.data.jwt);
+      login();
+      navigate.navigate('clientTab');
+    } catch (e) {
+      setLoading(false);
+      if (e.response.status === 400) {
+        createNotification('Algo deu errado revise seu email e senha');
+      }
+    }
   };
 
   const formik = useFormik({

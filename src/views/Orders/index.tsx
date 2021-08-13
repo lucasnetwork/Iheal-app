@@ -1,5 +1,5 @@
 import styles from './styles';
-import ordersMock from './ordersMock.json';
+
 import Header from '../../components/Header';
 import emotionCry from '../../assets/emotionCry.png';
 import Order from '../../components/Order';
@@ -13,7 +13,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 const Orders = () => {
   const { userData } = useContextProviderAuth();
-  const { cart } = useContextProvider();
+  const { cart, createNotification } = useContextProvider();
+  const [refreshOrder, setRefreshOrder] = useState(false);
   const [ordersOwner, setOrdersOwner] = useState<
     Array<{
       id: string;
@@ -34,23 +35,27 @@ const Orders = () => {
       total: number;
       date: string;
       quantity: number;
+      status: string;
     }>
   >([]);
 
   const navigate = useNavigation();
   const loadUserOrders = useCallback(async () => {
-    await api
-      .get(`/orders/store`)
-      .then(response => {
-        setOrdersOwner(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, [cart]);
+    try {
+      const response = await api.get(`/orders/store`);
+      setOrdersOwner(
+        response.data.filter((order: any) => order.status === 'unpaid')
+      );
+    } catch (error) {
+      createNotification('ocorreu um erro');
+    }
+  }, []);
   useEffect(() => {
     loadUserOrders();
   }, []);
+  const onRefreshing = () => {
+    loadUserOrders();
+  };
 
   return (
     <>
@@ -68,28 +73,34 @@ const Orders = () => {
                 keyExtractor={item => `${item.id}`}
                 renderItem={({ item }) => (
                   <View style={styles.orderContainer}>
-                    <Order
-                      clientName={item?.user_order.username}
-                      date={item?.date}
-                      name={item?.product.name}
-                      price={`${item?.product.price}`}
-                      quant={item.quantity}
-                      total={`${item?.total}`}
-                    />
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigate.navigate('confirmPayment', { id: item.id })
-                      }
-                      style={styles.buttonOrder}
-                    >
-                      <MaterialIcons
-                        name="keyboard-arrow-right"
-                        size={24}
-                        color="#11BAFD"
-                      />
-                    </TouchableOpacity>
+                    {item.status === 'unpaid' && (
+                      <>
+                        <Order
+                          clientName={item?.user_order.username}
+                          date={item?.date}
+                          name={item?.product.name}
+                          price={`R$${item?.product.price},00`}
+                          quant={item.quantity}
+                          total={`R$${item?.total},00`}
+                        />
+                        <TouchableOpacity
+                          onPress={() =>
+                            navigate.navigate('confirmPayment', { id: item.id })
+                          }
+                          style={styles.buttonOrder}
+                        >
+                          <MaterialIcons
+                            name="keyboard-arrow-right"
+                            size={24}
+                            color="#11BAFD"
+                          />
+                        </TouchableOpacity>
+                      </>
+                    )}
                   </View>
                 )}
+                refreshing={refreshOrder}
+                onRefresh={() => onRefreshing()}
               />
             </View>
           </>
