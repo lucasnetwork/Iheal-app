@@ -1,14 +1,37 @@
 import styles from './styles';
+<<<<<<< HEAD
 
+=======
+import { useContextProviderAuth } from '../../services/contextAuth';
+>>>>>>> 0a37a3c3379b93cf1830c773b943681575d3bc89
 import Button from '../../components/Button';
 import Product from '../../components/Product';
 import { useContextProvider } from '../../services/context';
 import Header from '../../components/Header';
 import api from '../../config/api';
 import { View, Text, TouchableOpacity } from 'react-native';
+<<<<<<< HEAD
 import React, { useCallback, useEffect, useState } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> 0a37a3c3379b93cf1830c773b943681575d3bc89
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
+
+interface ProductDetailProps {
+  username: string;
+  product: {
+    description: string;
+    image: string;
+    name: string;
+    price: number;
+    priceFormat: string;
+    stock: number;
+  };
+  paid: boolean;
+  total: number;
+  totalFormat: string;
+}
 
 const ConfirmPayment = () => {
   const { cart, createNotification } = useContextProvider();
@@ -114,9 +137,19 @@ const ConfirmPayment = () => {
             <Text style={styles.textButton}>*Pagamento em dinheiro</Text>
           </View>
           <View style={styles.containerButton}>
+<<<<<<< HEAD
             <Button small onPress={confirmPaymentOfOrder}>
               Confirmar Pagamento
             </Button>
+=======
+            {product?.paid ? (
+              <Button small>Pagamento Confirmado</Button>
+            ) : (
+              <Button small onPress={confirmPaymentOfOrder}>
+                Confirmar Pagamento
+              </Button>
+            )}
+>>>>>>> 0a37a3c3379b93cf1830c773b943681575d3bc89
           </View>
         </View>
       </View>

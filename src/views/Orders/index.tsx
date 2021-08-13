@@ -97,6 +97,26 @@ const Orders = () => {
                         </TouchableOpacity>
                       </>
                     )}
+                    <Order
+                      clientName={item?.user_order.username}
+                      date={item?.date}
+                      name={item?.product.name}
+                      price={`${item?.product.price}`}
+                      quant={item.quantity}
+                      total={`${item?.total}`}
+                    />
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigate.navigate('confirmPayment', { id: item?.id })
+                      }
+                      style={styles.buttonOrder}
+                    >
+                      <MaterialIcons
+                        name="keyboard-arrow-right"
+                        size={24}
+                        color="#11BAFD"
+                      />
+                    </TouchableOpacity>
                   </View>
                 )}
                 refreshing={refreshOrder}
