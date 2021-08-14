@@ -49,6 +49,7 @@ export default function SignInClient() {
       });
       await AsyncStorage.setItem('token', response.data.jwt);
       login();
+      createNotification('O login deu  certo!!');
       navigate.navigate('clientTab');
     } catch (e) {
       setLoading(false);
