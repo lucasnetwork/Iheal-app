@@ -30,6 +30,7 @@ export default function SignInClient() {
 
   const onSubmit = async () => {
     setLoading(true);
+    console.log(formik.values.email);
     try {
       const response = await api.post('/auth/local', {
         identifier: formik.values.email,
@@ -61,7 +62,6 @@ export default function SignInClient() {
   const formik = useFormik({
     initialValues: {
       email: '',
-
       password: '',
     },
     validationSchema: Yup.object().shape({
