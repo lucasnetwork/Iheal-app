@@ -10,6 +10,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Account = () => {
   const { userData } = useContextProviderAuth();
   const { cart, createNotification } = useContextProvider();
@@ -84,7 +86,8 @@ const Account = () => {
             />
             <View style={styles.loggoutContainer}>
               <TouchableOpacity
-                onPress={() => {
+                onPress={async () => {
+                  await AsyncStorage.removeItem('token');
                   navigate.navigate('signIn');
                 }}
               >

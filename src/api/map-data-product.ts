@@ -48,7 +48,7 @@ export const mapDataProduct = (pagesData: productData) => {
       address,
     },
     stock,
-    image: url,
+    image: url || '',
     description,
   };
 };
