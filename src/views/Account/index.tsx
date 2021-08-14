@@ -53,23 +53,6 @@ const Account = () => {
     <>
       <Header />
       <View style={styles.container}>
-        {/* <Text style={styles.title}>Olá, Visitante</Text>
-        <Text style={styles.text}>
-          Acesse sua conta para comprar online nas farmacias mais proximas de
-          você!
-        </Text>
-        <View style={styles.Containerbuttons}>
-          <View style={{ ...styles.Containerbutton, marginRight: 8 }}>
-            <Button small onPress={() => navigate.navigate('SignInClient')}>
-              Entrar
-            </Button>
-          </View>
-          <View style={styles.Containerbutton}>
-            <Button small onPress={() => navigate.navigate('SignUpClient')}>
-              Cadastrar-se
-            </Button>
-          </View>
-        </View> */}
         <View style={{ flex: 1, alignSelf: 'stretch' }}>
           <View style={styles.containerTitle}>
             <Text style={styles.titleShop}>

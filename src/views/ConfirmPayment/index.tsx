@@ -1,9 +1,4 @@
 import styles from './styles';
-<<<<<<< HEAD
-
-=======
-import { useContextProviderAuth } from '../../services/contextAuth';
->>>>>>> 0a37a3c3379b93cf1830c773b943681575d3bc89
 import Button from '../../components/Button';
 import Product from '../../components/Product';
 import { useContextProvider } from '../../services/context';
