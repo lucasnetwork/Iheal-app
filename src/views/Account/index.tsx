@@ -9,9 +9,10 @@ import { useContextProvider } from '../../services/context';
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Account = () => {
-  const { userData } = useContextProviderAuth();
+  const { userData, setauthenticated, setUserData } = useContextProviderAuth();
   const { cart, createNotification } = useContextProvider();
   const navigate = useNavigation();
   const [orders, setOrders] = useState<
@@ -48,7 +49,25 @@ const Account = () => {
   useEffect(() => {
     loadUserOrder();
   }, []);
-
+  const logout = useCallback(async () => {
+    setUserData({
+      token: '',
+      user: {
+        id: '',
+        username: '',
+        email: '',
+        address: '',
+        cep: '',
+        numberHouse: '',
+        complement: '',
+        district: '',
+        uf: '',
+      },
+    });
+    await AsyncStorage.setItem('token', '');
+    navigate.navigate('ChooseUserType');
+    setauthenticated(false);
+  }, []);
   return (
     <>
       <Header />
@@ -84,11 +103,7 @@ const Account = () => {
               )}
             />
             <View style={styles.loggoutContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigate.navigate('signIn');
-                }}
-              >
+              <TouchableOpacity onPress={() => logout()}>
                 <Text style={styles.loggoutText}>Sair</Text>
               </TouchableOpacity>
               <View style={styles.appInfo}>
