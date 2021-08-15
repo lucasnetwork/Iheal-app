@@ -64,7 +64,7 @@ const Account = () => {
         uf: '',
       },
     });
-    await AsyncStorage.setItem('token', '');
+    await AsyncStorage.removeItem('token');
     navigate.navigate('ChooseUserType');
     setauthenticated(false);
   }, []);

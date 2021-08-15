@@ -38,19 +38,20 @@ export default function SignInClient() {
       });
 
       setLoading(false);
-      if (response.data.IsStore === true) {
+      if (response.data.user.IsStore === true) {
         createNotification(
           'Sua conta não possui autorização para fazer login como cliente.'
         );
+        navigate.navigate('SignInStore');
+      } else {
+        setUserData({
+          token: response.data.jwt,
+          user: response.data.user,
+        });
+        await AsyncStorage.setItem('token', response.data.jwt);
+        login();
+        navigate.navigate('clientTab');
       }
-
-      setUserData({
-        token: response.data.jwt,
-        user: response.data.user,
-      });
-      await AsyncStorage.setItem('token', response.data.jwt);
-      login();
-      navigate.navigate('clientTab');
     } catch (e) {
       setLoading(false);
       if (e.response.status === 400) {
