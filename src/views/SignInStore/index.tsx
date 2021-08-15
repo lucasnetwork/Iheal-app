@@ -37,6 +37,7 @@ export default function SignInStore() {
         createNotification(
           'Sua conta não possui autorização para fazer login como loja.'
         );
+        return;
       }
       setUserData({
         token: response.data.jwt,
@@ -45,6 +46,7 @@ export default function SignInStore() {
       await AsyncStorage.setItem('token', response.data.jwt);
       navigate.navigate('shoppingTabs');
     } catch (e) {
+      console.log(e.response);
       setLoading(false);
       if (e.response.status === 400) {
         createNotification('Algo deu errado revise seu email e senha');
