@@ -38,7 +38,7 @@ const Account = () => {
   >([]);
   const loadUserOrder = useCallback(async () => {
     try {
-      const response = await api.get(`/orders/store`);
+      const response = await api.get(`/orders`);
 
       setOrders(response.data);
     } catch (error) {
