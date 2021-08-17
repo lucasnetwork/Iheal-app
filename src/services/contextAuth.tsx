@@ -121,6 +121,7 @@ const AuthProvider: React.FC = ({ children }) => {
       },
     });
     await AsyncStorage.setItem('token', '');
+
     setauthenticated(false);
   }, []);
   return (

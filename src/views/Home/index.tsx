@@ -22,10 +22,9 @@ const Home = () => {
     try {
       const response = await api.get(`/products`);
       const newResponse = mapData(response.data);
-      console.log('oii');
+
       setProducts(newResponse);
     } catch (error) {
-      console.log(error);
       createNotification('ocorreu um erro');
     }
   };

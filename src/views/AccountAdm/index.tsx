@@ -13,7 +13,7 @@ import { useNavigation, CommonActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Account = () => {
-  const { userData } = useContextProviderAuth();
+  const { userData, setUserData, setauthenticated } = useContextProviderAuth();
   const { cart, createNotification } = useContextProvider();
   const navigate = useNavigation();
   const [orders, setOrders] = useState<
@@ -39,7 +39,7 @@ const Account = () => {
   >([]);
   const loadUserOrder = useCallback(async () => {
     try {
-      const response = await api.get(`/orders/store`);
+      const response = await api.get(`/orders`);
 
       setOrders(response.data);
     } catch (error) {
@@ -49,7 +49,30 @@ const Account = () => {
   useEffect(() => {
     loadUserOrder();
   }, []);
+  const logout = useCallback(async () => {
+    setUserData({
+      token: '',
+      user: {
+        id: '',
+        username: '',
+        email: '',
+        address: '',
+        cep: '',
+        numberHouse: '',
+        complement: '',
+        district: '',
+        uf: '',
+      },
+    });
+    await AsyncStorage.removeItem('token');
+    const resetAction = CommonActions.reset({
+      index: 0,
+      routes: [{ name: 'ChooseUserType' }],
+    });
 
+    navigate.dispatch(resetAction);
+    setauthenticated(false);
+  }, []);
   return (
     <>
       <Header />
@@ -85,17 +108,7 @@ const Account = () => {
               )}
             />
             <View style={styles.loggoutContainer}>
-              <TouchableOpacity
-                onPress={async () => {
-                  await AsyncStorage.removeItem('token');
-                  const resetAction = CommonActions.reset({
-                    index: 0,
-                    routes: [{ name: 'signIn' }],
-                  });
-
-                  navigate.dispatch(resetAction);
-                }}
-              >
+              <TouchableOpacity onPress={() => logout()}>
                 <Text style={styles.loggoutText}>Sair</Text>
               </TouchableOpacity>
               <View style={styles.appInfo}>

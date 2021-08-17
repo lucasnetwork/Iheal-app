@@ -73,30 +73,27 @@ const Orders = () => {
                 keyExtractor={item => `${item.id}`}
                 renderItem={({ item }) => (
                   <View style={styles.orderContainer}>
-                    {item.status === 'unpaid' && (
-                      <>
-                        <Order
-                          clientName={item?.user_order.username}
-                          date={item?.date}
-                          name={item?.product.name}
-                          price={`R$${item?.product.price},00`}
-                          quant={item.quantity}
-                          total={`R$${item?.total},00`}
-                        />
-                        <TouchableOpacity
-                          onPress={() =>
-                            navigate.navigate('confirmPayment', { id: item.id })
-                          }
-                          style={styles.buttonOrder}
-                        >
-                          <MaterialIcons
-                            name="keyboard-arrow-right"
-                            size={24}
-                            color="#11BAFD"
-                          />
-                        </TouchableOpacity>
-                      </>
-                    )}
+                    <Order
+                      clientName={item?.user_order.username}
+                      date={item?.date}
+                      name={item?.product.name}
+                      price={`R$${item?.product.price},00`}
+                      quant={item.quantity}
+                      total={`R$${item?.total},00`}
+                    />
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigate.navigate('confirmPayment', { id: item.id })
+                      }
+                      style={styles.buttonOrder}
+                    >
+                      <MaterialIcons
+                        name="keyboard-arrow-right"
+                        size={24}
+                        color="#11BAFD"
+                      />
+                    </TouchableOpacity>
+
                     <Order
                       clientName={item?.user_order.username}
                       date={item?.date}

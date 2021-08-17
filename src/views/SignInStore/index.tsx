@@ -33,25 +33,26 @@ export default function SignInStore() {
       });
 
       setLoading(false);
-      if (response.data.IsStore === false) {
+
+      if (response.data.user.IsStore === false) {
         createNotification(
           'Sua conta não possui autorização para fazer login como loja.'
         );
-        return;
-      }
-      setUserData({
-        token: response.data.jwt,
-        user: response.data.user,
-      });
-      await AsyncStorage.setItem('token', response.data.jwt);
-      const resetAction = CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'shoppingTabs' }],
-      });
+        navigate.navigate('SignInClient');
+      } else {
+        setUserData({
+          token: response.data.jwt,
+          user: response.data.user,
+        });
+        await AsyncStorage.setItem('token', response.data.jwt);
+        const resetAction = CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'shoppingTabs' }],
+        });
 
-      navigate.dispatch(resetAction);
+        navigate.dispatch(resetAction);
+      }
     } catch (e) {
-      console.log(e.response);
       setLoading(false);
       if (e.response.status === 400) {
         createNotification('Algo deu errado revise seu email e senha');
