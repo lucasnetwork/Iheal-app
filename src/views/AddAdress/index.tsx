@@ -71,14 +71,15 @@ const AddAdress = () => {
     validationSchema: addressSchema,
 
     onSubmit(values) {
-      payment(values);
       if (loading) {
         return;
       }
-      setLoading(true);
+      payment(values).then(() => {
+        setLoading(true);
 
-      setLoading(false);
-      navigate.navigate('finishedBuy');
+        setLoading(false);
+        navigate.navigate('finishedBuy');
+      });
     },
   });
   const navigate = useNavigation();

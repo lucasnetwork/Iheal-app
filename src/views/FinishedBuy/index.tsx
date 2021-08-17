@@ -31,11 +31,16 @@ const FinishedBuy = () => {
   };
 
   const CreateOrder = () => {
-    cart.products.map(product => {
+    const promises = cart.products.map(product => {
       const { id } = product;
       return loadProductOrder(id);
     });
-    createNotification('Compra realizada');
+    Promise.all(promises)
+      .then(() => {
+        createNotification('Compra realizada');
+        navigate.navigate('clientTab');
+      })
+      .catch(() => createNotification('Aconteu algo inesperado'));
   };
   return (
     <>

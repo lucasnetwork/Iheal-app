@@ -83,7 +83,7 @@ const ProductDetail = () => {
       <View style={styles.footer}>
         <Button
           containerStyle={{
-            width: '50%',
+            width: '100%',
             height: 50,
             borderRadius: 1,
             backgroundColor: '#fff',
@@ -103,18 +103,6 @@ const ProductDetail = () => {
           }
         >
           Adicionar ao carrinho
-        </Button>
-        <Button
-          white
-          containerStyle={{
-            width: '50%',
-            height: 50,
-            borderRadius: 1,
-            marginLeft: 2,
-            backgroundColor: '#11BAFD',
-          }}
-        >
-          Comprar
         </Button>
       </View>
     </>
