@@ -8,7 +8,7 @@ import api from '../../config/api';
 import { useContextProvider } from '../../services/context';
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Account = () => {
@@ -88,7 +88,12 @@ const Account = () => {
               <TouchableOpacity
                 onPress={async () => {
                   await AsyncStorage.removeItem('token');
-                  navigate.navigate('signIn');
+                  const resetAction = CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'signIn' }],
+                  });
+
+                  navigate.dispatch(resetAction);
                 }}
               >
                 <Text style={styles.loggoutText}>Sair</Text>

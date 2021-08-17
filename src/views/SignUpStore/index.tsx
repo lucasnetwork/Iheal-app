@@ -15,7 +15,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import { useFormik } from 'formik';
 import { TextInputMask } from 'react-native-masked-text';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -53,7 +53,12 @@ export default function SignUpStore() {
         user: response.data.user,
       });
       await AsyncStorage.setItem('token', response.data.jwt);
-      navigation.navigate('shoppingTabs');
+      const resetAction = CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'shoppingTabs' }],
+      });
+
+      navigation.dispatch(resetAction);
     } catch (error) {
       setLoading(false);
       createNotification('Revise seu email ou senha e tente novamente');

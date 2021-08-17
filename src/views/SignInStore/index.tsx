@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -44,7 +44,12 @@ export default function SignInStore() {
         user: response.data.user,
       });
       await AsyncStorage.setItem('token', response.data.jwt);
-      navigate.navigate('shoppingTabs');
+      const resetAction = CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'shoppingTabs' }],
+      });
+
+      navigate.dispatch(resetAction);
     } catch (e) {
       console.log(e.response);
       setLoading(false);

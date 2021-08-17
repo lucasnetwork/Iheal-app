@@ -8,7 +8,7 @@ import maskCep from '../../utils/maskCep';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import { useFormik } from 'formik';
 import { TextInputMask } from 'react-native-masked-text';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -43,7 +43,12 @@ export default function SignUpClient() {
         });
         await AsyncStorage.setItem('token', response.data.jwt);
         login();
-        navigation.navigate('clientTab');
+        const resetAction = CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'clientTab' }],
+        });
+
+        navigation.dispatch(resetAction);
       })
       .catch(e => {
         createNotification(`${e.response}`);

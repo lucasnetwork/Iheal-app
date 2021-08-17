@@ -15,7 +15,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -42,6 +42,7 @@ export default function SignInClient() {
         createNotification(
           'Sua conta não possui autorização para fazer login como cliente.'
         );
+        return;
       }
 
       setUserData({
@@ -50,7 +51,12 @@ export default function SignInClient() {
       });
       await AsyncStorage.setItem('token', response.data.jwt);
       login();
-      navigate.navigate('clientTab');
+      const resetAction = CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'clientTab' }],
+      });
+
+      navigate.dispatch(resetAction);
     } catch (e) {
       setLoading(false);
       if (e.response.status === 400) {
