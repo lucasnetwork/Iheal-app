@@ -9,7 +9,6 @@ export default StyleSheet.create({
     flex: 1,
   },
   containerProduct: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 4,
   },

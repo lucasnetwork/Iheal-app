@@ -48,10 +48,8 @@ const FinishedBuy = () => {
               <Text style={styles.address}>
                 Rua {userData.user.address}, n° {userData.user.numberHouse}
               </Text>
-              <Text style={styles.address}>
-                {userData.user.district}-{userData.user.uf}
-              </Text>
-              {/* <Text style={styles.address}>Imperatriz - MA</Text> */}
+              <Text style={styles.address}>{userData.user.district}</Text>
+              <Text style={styles.address}>Imperatriz - MA</Text>
               <Text style={styles.address}>{userData.user.cep}</Text>
             </View>
             <TouchableOpacity onPress={() => navigate.navigate('adress')}>
@@ -74,7 +72,6 @@ const FinishedBuy = () => {
                   <View style={styles.containerProduct}>
                     <View>
                       <Text style={styles.titleProduct}>{item.name}</Text>
-                      <Text style={styles.titleShop}>Nome da Loja</Text>
                     </View>
                     <View>
                       <Text style={styles.titleShop}>
