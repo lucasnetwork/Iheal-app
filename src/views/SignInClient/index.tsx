@@ -21,7 +21,7 @@ import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignInClient() {
-  const { setUserData } = useContextProviderAuth();
+  const { setUserData, setauthenticated } = useContextProviderAuth();
   const navigate = useNavigation();
 
   const { login, createNotification } = useContextProvider();
@@ -55,7 +55,7 @@ export default function SignInClient() {
         index: 0,
         routes: [{ name: 'clientTab' }],
       });
-
+      setauthenticated(true);
       navigate.dispatch(resetAction);
     } catch (e) {
       setLoading(false);
